@@ -1,4 +1,4 @@
-classdef segyCon
+classdef segyCon < handle
 %
 %   Seismic data container for handling large out of core SEGY
 %   files. Current implementation only reads data and does not
@@ -10,7 +10,7 @@ classdef segyCon
 %
 
     
-   properties( Access = protected )
+   properties(SetAccess=private)
        
        % Header for the underlying SEGY files
        header = {};
@@ -24,19 +24,35 @@ classdef segyCon
    
    methods
        
-       function obj = segyCon(metadata_path);
+       function obj = segyCon(metadata_path)
            
            obj.header = load(metadata_path);
            obj.metafile = metadata_path;
            
            % Load the first block
-           [trace_headers, data, ilxl, offset_read] = ...
-               node_segy_read(obj.metafile, 1,1);
-           
-           obj.data = data;
-           obj.trace_headers = trace_headers;
+           obj.set_data(1,1);
            
        end
    
-    
+       
+       function success = set_data(obj, vol, block)
+           
+            d = obj;    
+           if vol < obj.header.nvols & block < obj.header.n_blocks
+         [trace_headers, data, ilxl, offset_read] =   ...   
+               node_segy_read(obj.metafile, num2str(vol),num2str(block));
+           
+          obj.data = data;
+          obj.trace_headers = trace_headers;
+          
+              
+          success = 1;
+           else
+               success = 0;
+           end
+             
+           
+       end % function
+   end % methods
+   
 end    
