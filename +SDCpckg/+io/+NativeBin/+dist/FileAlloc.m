@@ -9,7 +9,7 @@ function FileAlloc(dirname,header)
 %
 
 error(nargchk(2, 2, nargin, 'struct'));
-%assert(matlabpool('size')>0,'matlabpool must be open')
+%assert(parpool_size()>0,'parallel pool must be open')
 assert(ischar(dirname), 'directory name must be a string')
 assert(isstruct(header), 'header must be a header struct')
 assert(header.distributedIO==1,'header is missing file distribution')

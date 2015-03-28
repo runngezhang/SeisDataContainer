@@ -1,6 +1,6 @@
 function cl = Composite2Cell(co)
     L = length(co);
-    assert(matlabpool('size')==L,'')
+    assert(parpool_size()==L,'')
     cl = cell(1,L);
     for l=1:L
         cl{l} = co{l};

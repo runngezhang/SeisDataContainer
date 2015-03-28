@@ -5,7 +5,7 @@ function test_OutOfCoreDistTranspose(varargin)
     else
         trials = 1;
     end
-    labs = matlabpool('size');
+    labs = parpool_size();
     for t=1:trials
 
         all = tic;
@@ -73,7 +73,7 @@ end
 
 function De = test_ooftrans_helper(Ds,De)
 
-    labs = matlabpool('size');
+    labs = parpool_size();
     hdri = SDCpckg.basicHeaderStructFromX(Ds);
     hdri = SDCpckg.addDistHeaderStructFromX(hdri,Ds);
     %hdri.distribution

@@ -84,7 +84,7 @@ function  SeisDataContainer_init(varargin)
 
     % check gloabl directory on the workers
     % and create local temporary directories
-    if matlabpool('size') > 0
+    if parpool_size() > 0
         spmd
             assert(isdir(SDCglobalTmpDir),...
                 'Global temporary directory missing on the worker %d.',labindex)

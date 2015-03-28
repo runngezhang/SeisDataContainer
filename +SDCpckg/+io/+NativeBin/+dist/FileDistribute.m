@@ -15,7 +15,7 @@ assert(iscell(dirsout), 'distributed output directories names must form cell')
 assert(isscalar(distdim),'distribution dimension must be a scalar')
 assert(distdim>0,'distribution dimension must be bigger than 0')
 assert(isdir(dirin),'Fatal error: input directory %s does not exist',dirin);
-assert(matlabpool('size')>0,'matlabpool must be open')
+assert(parpool_size()>0,'parallel pool must be open')
 
 % Read header
 hdrin = SDCpckg.io.NativeBin.serial.HeaderRead(dirin);

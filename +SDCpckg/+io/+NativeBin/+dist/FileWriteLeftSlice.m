@@ -10,7 +10,7 @@ function FileWriteLeftSlice(dirname,x,slice)
 %
 %   Warning: If the specified dirname exists, it will be removed
 error(nargchk(3, 3, nargin, 'struct'));
-assert(matlabpool('size')>0,'matlabpool must be open')
+assert(parpool_size()>0,'parallel pool must be open')
 assert(ischar(dirname), 'directory name must be a string')
 assert(isdistributed(x), 'data must be distributed')
 assert(isvector(slice)|isequal(slice,[]), 'slice index must be a vector')

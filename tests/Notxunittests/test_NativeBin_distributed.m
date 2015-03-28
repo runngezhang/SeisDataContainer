@@ -4,9 +4,9 @@ if isempty(whos('global','SDCglobalTmpDir'))
 end
 disp('Start');
 gstart=tic;
-assert(matlabpool('size')>0,'matlabpool has to be open first')
+assert(parpool_size()>0,'parallel pool has to be open first')
 Il=2; Jl=2; Kl=2;
-I=matlabpool('size')*Il; J=matlabpool('size')*Jl; K=matlabpool('size')*Kl;
+I=parpool_size()*Il; J=parpool_size()*Jl; K=parpool_size()*Kl;
 disp([I J K])
 imat3=distributed.rand(I,J,K);
 imat3=complex(imat3,imat3);

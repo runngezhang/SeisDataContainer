@@ -20,7 +20,7 @@ function FileWrite(dirname,x,distribute,varargin)
 %            it will be overwritten.
 %
 error(nargchk(3, 5, nargin, 'struct'));
-assert(matlabpool('size')>0,'matlabpool must be open')
+assert(parpool_size()>0,'parallel pool must be open')
 assert(ischar(dirname), 'directory name must be a string')
 assert(isdistributed(x), 'data must be distributed')
 assert(isscalar(distribute),'distribute flag must be a scalar')

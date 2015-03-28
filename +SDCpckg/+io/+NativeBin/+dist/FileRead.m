@@ -12,7 +12,7 @@ function [x header] = FileRead(dirname,varargin)
 %                 Supported precisions: 'double', 'single'
 %
 error(nargchk(1, 2, nargin, 'struct'));
-assert(matlabpool('size')>0,'matlabpool must be open')
+assert(parpool_size()>0,'parallel pool must be open')
 assert(ischar(dirname), 'directory name must be a string')
 assert(isdir(dirname),'Fatal error: directory %s does not exist',dirname);
 

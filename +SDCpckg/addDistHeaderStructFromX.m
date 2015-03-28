@@ -1,11 +1,11 @@
 function header = addDistHeaderStructFromX(headerin,x)
     assert(isstruct(headerin),'headerin has to be a header struct');
     assert(isdistributed(x),'x has to be distributed');
-    assert(matlabpool('size')>0,'matlabpool has to open');
+    assert(parpool_size()>0,'parallel pool has to open');
 
     header = headerin;
     dims = length(size(x));
-    poolsize = matlabpool('size');
+    poolsize = parpool_size();
     cdim = Composite();
     csize = Composite();
     cpart = Composite();

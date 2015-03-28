@@ -11,7 +11,7 @@ function [x header] = FileReadLeftSlice(dirname,slice,varargin)
 %                 Supported precisions: 'double', 'single'
 %
 error(nargchk(2, 3, nargin, 'struct'));
-assert(matlabpool('size')>0,'matlabpool must be open')
+assert(parpool_size()>0,'parallel pool must be open')
 assert(ischar(dirname), 'directory name must be a string')
 assert(isdir(dirname),'Fatal error: directory %s does not exist',dirname);
 assert(isvector(slice)|isequal(slice,[]), 'slice index must be a vector')

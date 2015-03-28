@@ -17,7 +17,7 @@ function FileTranspose(dirnameIn,dirnameOut,varargin)
 %   has matlab default distribution
 %
 error(nargchk(2, 5, nargin, 'struct'));
-assert(matlabpool('size')>0,'matlabpool must be open')
+assert(parpool_size()>0,'parallel pool must be open')
 assert(ischar(dirnameIn), 'input directory name must be a string')
 assert(isdir(dirnameIn),'Fatal error: input directory %s does not exist',dirnameIn);
 assert(ischar(dirnameOut), 'output directory name must be a string')
@@ -40,7 +40,7 @@ else % here starts the distributed transpose
     if nargin>3
         assert(isvector(varargin{2}),'partition must be a vector')
         partition = varargin{2};
-        assert(length(partition)==matlabpool('size'),'length(partition) does not match the matlabpool')
+        assert(length(partition)==parpool_size(),'length(partition) does not match the paralel pool')
         assert(sum(partition)==sizeIn(end),'sum(partition) does not match the diemnsion')
     else
         partition = SDCpckg.utils.defaultDistribution(sizeIn(end));
@@ -66,15 +66,15 @@ else % here starts the distributed transpose
     pde1 = prod(de(1:end-1));
     dde = pde1*hdrout.distribution.partition;
     % indecies
-    irngIn = zeros(matlabpool('size'),2);
+    irngIn = zeros(parpool_size(),2);
     indxRngIn = hdrin.distribution.indx_rng;
-    for l=1:matlabpool('size')
+    for l=1:parpool_size()
         irngIn(l,1) = (indxRngIn{l}(1)-1)*pds1+1;
         irngIn(l,2) = (indxRngIn{l}(2))*pds1;
     end
-    irngOut = zeros(matlabpool('size'),2);
+    irngOut = zeros(parpool_size(),2);
     indxRngOut = hdrout.distribution.indx_rng;
-    for l=1:matlabpool('size')
+    for l=1:parpool_size()
         irngOut(l,1) = (indxRngOut{l}(1)-1)*pde1+1; % here is wrong
         irngOut(l,2) = (indxRngOut{l}(2))*pde1;
     end

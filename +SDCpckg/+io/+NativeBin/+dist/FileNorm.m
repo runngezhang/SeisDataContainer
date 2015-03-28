@@ -56,7 +56,7 @@ if(norm == inf)
         end
     end
     y = -inf;
-    for i=1:matlabpool('size')
+    for i=1:parpool_size()
         y = max(y,cell2mat(total(i)));
     end
 
@@ -87,7 +87,7 @@ elseif(norm == -inf)
         end
     end
     y = inf;
-    for i=1:matlabpool('size')
+    for i=1:parpool_size()
         y = min(y,cell2mat(total(i)));
     end
 
@@ -120,7 +120,7 @@ elseif (isscalar(norm))
             rstart   = rend + 1;
         end
     end
-    for i=1:matlabpool('size')
+    for i=1:parpool_size()
         grandTotal = grandTotal + cell2mat(total(i));
     end    
     y = grandTotal^(1/norm);

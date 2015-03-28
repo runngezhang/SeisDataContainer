@@ -6,12 +6,12 @@ function deleteDistDir(tmpdirs)
 %   - TMPDIRS: cell of temporary directories on workers
 %
 %   Note: deleteDistDir will not clean TMPDIRS if called after
-%         closing matlabpool
+%         closing parallel pool
 %
     assert(iscell(tmpdirs),'tmpdir is not a string');
-    assert(matlabpool('size')>0,'matlabpool has to open');
-    assert(length(tmpdirs)==matlabpool('size'),...
-    'Fatal error: matlabpool size does not match tmpdirs length');
+    assert(parpool_size()>0,'parallel pool has to open');
+    assert(length(tmpdirs)==parpool_size(),...
+    'Fatal error: parallel pool size does not match tmpdirs length');
     tmpdir = SDCpckg.utils.Cell2Composite(tmpdirs);
 
     spmd
