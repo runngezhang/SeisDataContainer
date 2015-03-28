@@ -14,10 +14,7 @@ classdef segyCon < handle
        
        % Header for the underlying SEGY files
        header = {};
-       % loaded data
-       data = [];
-       % headers for loaded data 
-       trace_headers = {};
+
        % job metafile
        metafile = '';
    end
@@ -29,29 +26,32 @@ classdef segyCon < handle
            obj.header = load(metadata_path);
            obj.metafile = metadata_path;
            
-           % Load the first block
-           obj.set_data(1,1);
-           
        end
    
        
-       function success = set_data(obj, vol, block)
+       function container = data(obj, vol, block)
            
             d = obj;    
            if vol < obj.header.nvols & block < obj.header.n_blocks
          [trace_headers, data, ilxl, offset_read] =   ...   
                node_segy_read(obj.metafile, num2str(vol),num2str(block));
            
-          obj.data = data;
-          obj.trace_headers = trace_headers;
-          
+    
+         
+         % Total hack to reform data, need to actually look at indices
+         dims = max(ilxl) - min(ilxl) +1;
+         
               
-          success = 1;
-           else
-               success = 0;
-           end
-             
-           
+         % make an in-core container
+         header = SDCpckg.basicHeaderStruct([trace_headers.n_samples, ...
+                             dims[1], dims[2]], 'double', 0);
+         
+         
+         
+         container = iCon(header);
+         container.data = reshape(data,trace_headers.n_samples, ...
+                             dims[1], dims[2]) ;
+         
        end % function
    end % methods
    
