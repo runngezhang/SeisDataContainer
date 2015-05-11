@@ -44,14 +44,14 @@ classdef segyCon < handle
               
          % make an in-core container
          header = SDCpckg.basicHeaderStruct([trace_headers.n_samples, ...
-                             dims[1], dims[2]], 'double', 0);
+                             dims(1), dims(2)], 'double', 0);
          
          
          
          container = iCon(header);
          container.data = reshape(data,trace_headers.n_samples, ...
-                             dims[1], dims[2]) ;
-         
+                             dims(1), dims(2)) ;
+           end
        end % function
    end % methods
    
