@@ -29,28 +29,23 @@ classdef segyCon < handle
        end
    
        
-       function container = data(obj, vol, block)
+       function container = data(obj, block)
            
             d = obj;    
-           if vol < obj.header.nvols & block < obj.header.n_blocks
+           if block < obj.header.n_blocks
          [trace_headers, data, ilxl, offset_read] =   ...   
-               node_segy_read(obj.metafile, num2str(vol),num2str(block));
-           
-    
+               node_segy_read(obj.metafile, num2str(1),num2str(block));
          
-         % Total hack to reform data, need to actually look at indices
-         dims = max(ilxl) - min(ilxl) +1;
-         
+         dims = size(data);
               
          % make an in-core container
-         header = SDCpckg.basicHeaderStruct([trace_headers.n_samples, ...
-                             dims(1), dims(2)], 'double', 0);
+         header = SDCpckg.basicHeaderStruct([size(data,1), size(data,2)],...
+             'double', 0);
          
          
          
          container = iCon(header);
-         container.data = reshape(data,trace_headers.n_samples, ...
-                             dims(1), dims(2)) ;
+         container.data = data;
            end
        end % function
    end % methods
