@@ -13,7 +13,7 @@ if nargin == 3 && strcmp(swp,'swap')
 end
 
 % Scalar case
-if isscalar(A) && ~isa(A,'SeisDataContainer')
+if isscalar(A) && ~isa(A, 'function_handle') && ~isa(A,'SeisDataContainer')
     B.data = double(A)*B.data;
     y = B;
     return;
