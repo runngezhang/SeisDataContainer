@@ -29,12 +29,12 @@ classdef segyCon < handle
        end
    
        
-       function container = data(obj, block)
+       function container = data(obj, volume, block)
            
             d = obj;    
            if block < obj.header.n_blocks
          [trace_headers, data, ilxl, offset_read] =   ...   
-               node_segy_read(obj.metafile, num2str(1),num2str(block));
+               node_segy_read(obj.metafile, num2str(volume),num2str(block));
          
          dims = size(data);
               
