@@ -17,5 +17,6 @@ classdef iriCon < irSeisDataContainer
             % Construct            
             x = x@irSeisDataContainer(headerIn,varargin{:});
         end % constructor
+        
     end % protected methods
 end % classdef

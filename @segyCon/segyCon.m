@@ -16,7 +16,7 @@ classdef segyCon < iroCon
         function obj = segyCon(metadata_path)
             
             header = irSDCpckg.stackheaderFromMetadata(metadata_path);
-            dims = [size(header.scale,1) size(header.metadata,2)];
+            dims = [size(header.scale,2) size(header.metadata,2)];
             
             obj = obj@iroCon(header, dims);
             obj.pathname = metadata_path;
