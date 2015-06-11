@@ -51,7 +51,7 @@ classdef (InferiorClasses = {?distributed,?codistributed}) piCon < iCon
             
             if ~isstruct(doh)
                 data   = doh;
-                header = SDCpckg.basicHeaderStructFromX(data);
+                header = SDCpckg.Reg.basicHeaderStructFromX(data);
                 % Distribute data if not distributed
                 if ~isdistributed(doh)
                     assert(isnumeric(doh), 'data must be numeric');

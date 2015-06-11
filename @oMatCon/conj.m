@@ -8,7 +8,7 @@ function y = conj(a)
 %
 aa       = path(a.pathname);
 td       = ConDir();
-SDCpckg.io.NativeBin.serial.FileConj(aa,path(td));
+SDCpckg.Reg.io.NativeBin.serial.FileConj(aa,path(td));
 y        = oMatCon.load(td);
 y.perm   = a.perm;
 y.exsize = a.exsize;

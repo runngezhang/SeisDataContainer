@@ -11,7 +11,7 @@ function y = reshape(x,varargin)
 %
 
 % finding the index of first string input (if it exists)
-stringIndex = SDCpckg.utils.getFirstStringIndex(varargin{:});
+stringIndex = SDCpckg.Reg.utils.getFirstStringIndex(varargin{:});
 
 % Parsing inputs for readonly and copy case
 p = inputParser;

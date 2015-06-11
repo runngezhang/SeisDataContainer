@@ -93,7 +93,7 @@ else
     end
 end
 
-did_pass = suite.run(SDCpckg.utils.DataContainerTestRunDisplay());
+did_pass = suite.run(SDCpckg.Reg.utils.DataContainerTestRunDisplay());
 
 if nargout > 0
     out = did_pass;

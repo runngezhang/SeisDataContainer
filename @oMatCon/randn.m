@@ -17,7 +17,7 @@ function x = randn(varargin)
 %   Note: The size inputs M, N, and P... should be nonnegative integers. 
 %   Negative integers are treated as 0.
 %
-stringIndex = SDCpckg.utils.getFirstStringIndex(varargin{:});    
+stringIndex = SDCpckg.Reg.utils.getFirstStringIndex(varargin{:});    
 if(stringIndex)
     xsize = cell2mat(varargin(1:stringIndex-1));
     if(length(xsize) == 1)
@@ -37,8 +37,8 @@ else
 end
 
 td     = ConDir();
-header = SDCpckg.basicHeaderStruct(xsize,xprecision,0);
-SDCpckg.io.NativeBin.serial.FileRandn(path(td),header);
+header = SDCpckg.Reg.basicHeaderStruct(xsize,xprecision,0);
+SDCpckg.Reg.io.NativeBin.serial.FileRandn(path(td),header);
 if(stringIndex)
     x = oMatCon.load(td,p.Unmatched);
 else

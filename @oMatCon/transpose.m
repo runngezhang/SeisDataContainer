@@ -14,7 +14,7 @@ sepDim = x.exsize(2,1);
 
 % Do all the out of core magic
 td = ConDir();
-SDCpckg.io.NativeBin.serial.FileTranspose(path(x.pathname),path(td),sepDim);
+SDCpckg.Reg.io.NativeBin.serial.FileTranspose(path(x.pathname),path(td),sepDim);
 y  = oMatCon.load(td);
 
 % In-core continuation of class properties

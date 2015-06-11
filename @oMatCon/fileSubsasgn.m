@@ -38,7 +38,7 @@ if len == size(x.exsize,2) % Explicit indexing
     work_header.dims = ndims(x);
 
     % Temporarily write header to file
-    SDCpckg.io.NativeBin.serial.HeaderWrite(path(x.pathname),work_header);
+    SDCpckg.Reg.io.NativeBin.serial.HeaderWrite(path(x.pathname),work_header);
 else % implicit indexing, use current header
     work_header = x.header;
 end
@@ -69,10 +69,10 @@ end
 % Inject data
 % Accomodate the weird syntax of the FileCopyLeftChunkToFile function
 range = [range(1) range(end)];
-SDCpckg.io.NativeBin.serial.FileCopyLeftChunkFromFile(path(a.pathname),...
+SDCpckg.Reg.io.NativeBin.serial.FileCopyLeftChunkFromFile(path(a.pathname),...
     path(x.pathname),range,slice);
 
 % Return original header to original state
 if len == size(x.exsize,2) % Explicit indexing
-    SDCpckg.io.NativeBin.serial.HeaderWrite(path(x.pathname),x.header);
+    SDCpckg.Reg.io.NativeBin.serial.HeaderWrite(path(x.pathname),x.header);
 end

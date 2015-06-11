@@ -3,7 +3,7 @@ function y = dataMultiply(x, op)
 %   y = dataMultiply(x,op) returns what op*x is supposed to return
 
 % Import last dimension indexing function
-ldind = @SDCpckg.utils.ldind;
+ldind = @SDCpckg.Reg.utils.ldind;
 
 % Unwrap data and multiply
 y_data   = mtimes(op,double(x));

@@ -15,7 +15,7 @@ else
 end
 
 td = ConDir();
-SDCpckg.io.NativeBin.serial.FileLdivide...
+SDCpckg.Reg.io.NativeBin.serial.FileLdivide...
     (aa,bb,path(td));
 y  = oMatCon.load(td);
 
