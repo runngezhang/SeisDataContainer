@@ -6,8 +6,8 @@ function test_distributed_fileReadWrite_noDistribute_double_real
 %%
     imat = distributed.rand(2,2,4);
     td   = ConDir();
-    SDCpckg.io.NativeBin.dist.FileWrite(path(td),imat,0);
-    x    = SDCpckg.io.NativeBin.dist.FileRead(path(td));
+    SDCpckg.Reg.io.NativeBin.dist.FileWrite(path(td),imat,0);
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileRead(path(td));
     assert(isequal(x,imat))
 end
 
@@ -16,8 +16,8 @@ function test_distributed_fileReadWrite_noDistribute_double_complex
     imat = distributed.rand(2,2,4);
     imat = complex(imat,imat);
     td   = ConDir();
-    SDCpckg.io.NativeBin.dist.FileWrite(path(td),imat,0);
-    x = SDCpckg.io.NativeBin.dist.FileRead(path(td));
+    SDCpckg.Reg.io.NativeBin.dist.FileWrite(path(td),imat,0);
+    x = SDCpckg.Reg.io.NativeBin.dist.FileRead(path(td));
     assert(isequal(x,imat))
 end
 
@@ -25,8 +25,8 @@ function test_distributed_fileReadWrite_noDistribute_single_real
 %%
     imat = distributed.rand(2,2,4);
     td   = ConDir();
-    SDCpckg.io.NativeBin.dist.FileWrite(path(td),imat,0,'single');
-    x = SDCpckg.io.NativeBin.dist.FileRead(path(td),'single');
+    SDCpckg.Reg.io.NativeBin.dist.FileWrite(path(td),imat,0,'single');
+    x = SDCpckg.Reg.io.NativeBin.dist.FileRead(path(td),'single');
     assert(isequal(x,single(imat)))
 end
 
@@ -35,8 +35,8 @@ function test_distributed_fileReadWrite_noDistribute_single_complex
     imat = distributed.rand(2,2,4);
     imat = complex(imat,imat);
     td   = ConDir();
-    SDCpckg.io.NativeBin.dist.FileWrite(path(td),imat,0,'single');
-    x = SDCpckg.io.NativeBin.dist.FileRead(path(td),'single');
+    SDCpckg.Reg.io.NativeBin.dist.FileWrite(path(td),imat,0,'single');
+    x = SDCpckg.Reg.io.NativeBin.dist.FileRead(path(td),'single');
     assert(isequal(x,single(imat)))
 end
 
@@ -45,8 +45,8 @@ function test_distributed_fileReadWrite_distribute_double_real
     imat = distributed.rand(2,2,4);
     ts   = ConDir();
     td   = ConDistDirs();
-    SDCpckg.io.NativeBin.dist.FileWrite(path(ts),imat,1,path(td));
-    x = SDCpckg.io.NativeBin.dist.FileRead(path(ts));
+    SDCpckg.Reg.io.NativeBin.dist.FileWrite(path(ts),imat,1,path(td));
+    x = SDCpckg.Reg.io.NativeBin.dist.FileRead(path(ts));
     assert(isequal(x,imat))
 end
 
@@ -56,8 +56,8 @@ function test_distributed_fileReadWrite_distribute_double_complex
     imat = complex(imat,imat);
     ts   = ConDir();
     td   = ConDistDirs();
-    SDCpckg.io.NativeBin.dist.FileWrite(path(ts),imat,1,path(td));
-    x = SDCpckg.io.NativeBin.dist.FileRead(path(ts));
+    SDCpckg.Reg.io.NativeBin.dist.FileWrite(path(ts),imat,1,path(td));
+    x = SDCpckg.Reg.io.NativeBin.dist.FileRead(path(ts));
     assert(isequal(x,imat))
 end
 
@@ -66,8 +66,8 @@ function test_distributed_fileReadWrite_distribute_single_real
     imat = distributed.rand(2,2,4);
     ts   = ConDir();
     td   = ConDistDirs();
-    SDCpckg.io.NativeBin.dist.FileWrite(path(ts),imat,1,path(td),'single');
-    x = SDCpckg.io.NativeBin.dist.FileRead(path(ts),'single');
+    SDCpckg.Reg.io.NativeBin.dist.FileWrite(path(ts),imat,1,path(td),'single');
+    x = SDCpckg.Reg.io.NativeBin.dist.FileRead(path(ts),'single');
     assert(isequal(x,single(imat)))
 end
 
@@ -77,8 +77,8 @@ function test_distributed_fileReadWrite_distribute_single_complex
     imat = complex(imat,imat);
     ts   = ConDir();
     td   = ConDistDirs();
-    SDCpckg.io.NativeBin.dist.FileWrite(path(ts),imat,1,path(td),'single');
-    x = SDCpckg.io.NativeBin.dist.FileRead(path(ts),'single');
+    SDCpckg.Reg.io.NativeBin.dist.FileWrite(path(ts),imat,1,path(td),'single');
+    x = SDCpckg.Reg.io.NativeBin.dist.FileRead(path(ts),'single');
     assert(isequal(x,single(imat)))
 end
 
@@ -86,9 +86,9 @@ function test_distributed_fileReadLeftSlice_double_real
 %%
     imat = distributed.rand(2,2,4);
     td   = ConDir();
-    SDCpckg.io.NativeBin.dist.FileWrite(path(td),imat,0);
+    SDCpckg.Reg.io.NativeBin.dist.FileWrite(path(td),imat,0);
     i    = randi(4);
-    x    = SDCpckg.io.NativeBin.dist.FileReadLeftSlice(path(td),i);
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileReadLeftSlice(path(td),i);
     assert(isequal(x,imat(:,:,i)))
 end
 
@@ -97,9 +97,9 @@ function test_distributed_fileReadLeftSlice_double_complex
     imat = distributed.rand(2,2,4);
     imat = complex(imat,imat);
     td   = ConDir();
-    SDCpckg.io.NativeBin.dist.FileWrite(path(td),imat,0);
+    SDCpckg.Reg.io.NativeBin.dist.FileWrite(path(td),imat,0);
     i    = randi(4);
-    x    = SDCpckg.io.NativeBin.dist.FileReadLeftSlice(path(td),i);
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileReadLeftSlice(path(td),i);
     assert(isequal(x,imat(:,:,i)))
 end
 
@@ -107,9 +107,9 @@ function test_distributed_fileReadLeftSlice_single_real
 %%
     imat = distributed.rand(2,2,4);
     td   = ConDir();
-    SDCpckg.io.NativeBin.dist.FileWrite(path(td),imat,0,'single');
+    SDCpckg.Reg.io.NativeBin.dist.FileWrite(path(td),imat,0,'single');
     i    = randi(4);
-    x    = SDCpckg.io.NativeBin.dist.FileReadLeftSlice(path(td),i,'single');
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileReadLeftSlice(path(td),i,'single');
     assert(isequal(x,single(imat(:,:,i))))
 end
 
@@ -118,9 +118,9 @@ function test_distributed_fileReadLeftSlice_single_complex
     imat = distributed.rand(2,2,4);
     imat = complex(imat,imat);
     td   = ConDir();
-    SDCpckg.io.NativeBin.dist.FileWrite(path(td),imat,0,'single');
+    SDCpckg.Reg.io.NativeBin.dist.FileWrite(path(td),imat,0,'single');
     i    = randi(4);
-    x    = SDCpckg.io.NativeBin.dist.FileReadLeftSlice(path(td),i,'single');
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileReadLeftSlice(path(td),i,'single');
     assert(isequal(x,single(imat(:,:,i))))
 end
 
@@ -129,10 +129,10 @@ function test_distributed_fileWriteLeftSlice_double_real
     imat = distributed.rand(2,2,4);
     dmat = distributed.rand(2,2);
     td   = ConDir();
-    SDCpckg.io.NativeBin.dist.FileWrite(path(td),imat,0);
+    SDCpckg.Reg.io.NativeBin.dist.FileWrite(path(td),imat,0);
     i    = randi(4);
-    SDCpckg.io.NativeBin.dist.FileWriteLeftSlice(path(td),dmat,[i]);
-    x    = SDCpckg.io.NativeBin.dist.FileReadLeftSlice(path(td),[i]);
+    SDCpckg.Reg.io.NativeBin.dist.FileWriteLeftSlice(path(td),dmat,[i]);
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileReadLeftSlice(path(td),[i]);
     assert(isequal(x,dmat))
 end
 
@@ -143,10 +143,10 @@ function test_distributed_fileWriteLeftSlice_double_complex
     dmat = distributed.rand(2,2);
     dmat = complex(dmat,dmat);
     td   = ConDir();
-    SDCpckg.io.NativeBin.dist.FileWrite(path(td),imat,0);
+    SDCpckg.Reg.io.NativeBin.dist.FileWrite(path(td),imat,0);
     i    = randi(4);
-    SDCpckg.io.NativeBin.dist.FileWriteLeftSlice(path(td),dmat,[i]);
-    x    = SDCpckg.io.NativeBin.dist.FileReadLeftSlice(path(td),[i]);
+    SDCpckg.Reg.io.NativeBin.dist.FileWriteLeftSlice(path(td),dmat,[i]);
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileReadLeftSlice(path(td),[i]);
     assert(isequal(x,dmat))
 end
 
@@ -155,10 +155,10 @@ function test_distributed_fileWriteLeftSlice_single_real
     imat = distributed.rand(2,2,4);
     dmat = distributed.rand(2,2);
     td   = ConDir();
-    SDCpckg.io.NativeBin.dist.FileWrite(path(td),imat,0,'single');
+    SDCpckg.Reg.io.NativeBin.dist.FileWrite(path(td),imat,0,'single');
     i    = randi(4);
-    SDCpckg.io.NativeBin.dist.FileWriteLeftSlice(path(td),dmat,[i]);
-    x    = SDCpckg.io.NativeBin.dist.FileReadLeftSlice(path(td),[i],'single');
+    SDCpckg.Reg.io.NativeBin.dist.FileWriteLeftSlice(path(td),dmat,[i]);
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileReadLeftSlice(path(td),[i],'single');
     assert(isequal(x,single(dmat)))
 end
 
@@ -169,10 +169,10 @@ function test_distributed_fileWriteLeftSlice_single_complex
     dmat = distributed.rand(2,2);
     dmat = complex(dmat,dmat);
     td   = ConDir();
-    SDCpckg.io.NativeBin.dist.FileWrite(path(td),imat,0,'single');
+    SDCpckg.Reg.io.NativeBin.dist.FileWrite(path(td),imat,0,'single');
     i    = randi(4);
-    SDCpckg.io.NativeBin.dist.FileWriteLeftSlice(path(td),dmat,[i]);
-    x    = SDCpckg.io.NativeBin.dist.FileReadLeftSlice(path(td),[i],'single');
+    SDCpckg.Reg.io.NativeBin.dist.FileWriteLeftSlice(path(td),dmat,[i]);
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileReadLeftSlice(path(td),[i],'single');
     assert(isequal(x,single(dmat)))
 end
 
@@ -182,10 +182,10 @@ function test_distributed_fileDistribute
     ts    = ConDir();
     td    = ConDir();
     tdist = ConDistDirs();
-    SDCpckg.io.NativeBin.serial.FileWrite(path(ts),imat);
+    SDCpckg.Reg.io.NativeBin.serial.FileWrite(path(ts),imat);
     i     = randi(3);
-    SDCpckg.io.NativeBin.dist.FileDistribute(path(ts),path(td),path(tdist),i);
-    x     = SDCpckg.io.NativeBin.dist.FileRead(path(td));
+    SDCpckg.Reg.io.NativeBin.dist.FileDistribute(path(ts),path(td),path(tdist),i);
+    x     = SDCpckg.Reg.io.NativeBin.dist.FileRead(path(td));
     assert(isequal(x,imat))
 end
 
@@ -195,9 +195,9 @@ function test_distributed_fileGather
     ts    = ConDir();
     td    = ConDir();
     tdist = ConDistDirs();
-    SDCpckg.io.NativeBin.dist.FileWrite(path(td),imat,1,path(tdist));
-    SDCpckg.io.NativeBin.dist.FileGather(path(td),path(ts));
-    x     = SDCpckg.io.NativeBin.serial.FileRead(path(ts));
+    SDCpckg.Reg.io.NativeBin.dist.FileWrite(path(td),imat,1,path(tdist));
+    SDCpckg.Reg.io.NativeBin.dist.FileGather(path(td),path(ts));
+    x     = SDCpckg.Reg.io.NativeBin.serial.FileRead(path(ts));
     assert(isequal(x,imat))
 end
 
@@ -206,19 +206,19 @@ function test_distributed_FileNorm_double_real
     imat = distributed.rand(2,2,4,5,6);
     ts   = ConDir();
     td   = ConDistDirs();
-    SDCpckg.io.NativeBin.dist.FileWrite(path(ts),imat,1,path(td));
-    x    = SDCpckg.io.NativeBin.dist.FileNorm(path(ts),0);
-    assertElementsAlmostEqual(x,norm(SDCpckg.utils.vecNativeSerial(gather(imat)),0))
-    x    = SDCpckg.io.NativeBin.dist.FileNorm(path(ts),1);
-    assertElementsAlmostEqual(x,norm(SDCpckg.utils.vecNativeSerial(gather(imat)),1))
-    x    = SDCpckg.io.NativeBin.dist.FileNorm(path(ts),2);
-    assertElementsAlmostEqual(x,norm(SDCpckg.utils.vecNativeSerial(gather(imat)),2))
-    x    = SDCpckg.io.NativeBin.dist.FileNorm(path(ts),-inf);
-    assertElementsAlmostEqual(x,norm(SDCpckg.utils.vecNativeSerial(gather(imat)),-inf))
-    x    = SDCpckg.io.NativeBin.dist.FileNorm(path(ts),inf);
-    assertElementsAlmostEqual(x,norm(SDCpckg.utils.vecNativeSerial(gather(imat)),inf))
-    x    = SDCpckg.io.NativeBin.dist.FileNorm(path(ts),'fro');
-    assertElementsAlmostEqual(x,norm(SDCpckg.utils.vecNativeSerial(gather(imat)),'fro'))
+    SDCpckg.Reg.io.NativeBin.dist.FileWrite(path(ts),imat,1,path(td));
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileNorm(path(ts),0);
+    assertElementsAlmostEqual(x,norm(SDCpckg.Reg.utils.vecNativeSerial(gather(imat)),0))
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileNorm(path(ts),1);
+    assertElementsAlmostEqual(x,norm(SDCpckg.Reg.utils.vecNativeSerial(gather(imat)),1))
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileNorm(path(ts),2);
+    assertElementsAlmostEqual(x,norm(SDCpckg.Reg.utils.vecNativeSerial(gather(imat)),2))
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileNorm(path(ts),-inf);
+    assertElementsAlmostEqual(x,norm(SDCpckg.Reg.utils.vecNativeSerial(gather(imat)),-inf))
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileNorm(path(ts),inf);
+    assertElementsAlmostEqual(x,norm(SDCpckg.Reg.utils.vecNativeSerial(gather(imat)),inf))
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileNorm(path(ts),'fro');
+    assertElementsAlmostEqual(x,norm(SDCpckg.Reg.utils.vecNativeSerial(gather(imat)),'fro'))
 end
 
 function test_distributed_FileNorm_double_complex
@@ -227,19 +227,19 @@ function test_distributed_FileNorm_double_complex
     imat = complex(imat,imat);
     ts   = ConDir();
     td   = ConDistDirs();
-    SDCpckg.io.NativeBin.dist.FileWrite(path(ts),imat,1,path(td));
-    x    = SDCpckg.io.NativeBin.dist.FileNorm(path(ts),0);
-    assertElementsAlmostEqual(x,norm(SDCpckg.utils.vecNativeSerial(gather(imat)),0))
-    x    = SDCpckg.io.NativeBin.dist.FileNorm(path(ts),1);
-    assertElementsAlmostEqual(x,norm(SDCpckg.utils.vecNativeSerial(gather(imat)),1))
-    x    = SDCpckg.io.NativeBin.dist.FileNorm(path(ts),2);
-    assertElementsAlmostEqual(x,norm(SDCpckg.utils.vecNativeSerial(gather(imat)),2))
-    x    = SDCpckg.io.NativeBin.dist.FileNorm(path(ts),-inf);
-    assertElementsAlmostEqual(x,norm(SDCpckg.utils.vecNativeSerial(gather(imat)),-inf))
-    x    = SDCpckg.io.NativeBin.dist.FileNorm(path(ts),inf);
-    assertElementsAlmostEqual(x,norm(SDCpckg.utils.vecNativeSerial(gather(imat)),inf))
-    x    = SDCpckg.io.NativeBin.dist.FileNorm(path(ts),'fro');
-    assertElementsAlmostEqual(x,norm(SDCpckg.utils.vecNativeSerial(gather(imat)),'fro'))
+    SDCpckg.Reg.io.NativeBin.dist.FileWrite(path(ts),imat,1,path(td));
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileNorm(path(ts),0);
+    assertElementsAlmostEqual(x,norm(SDCpckg.Reg.utils.vecNativeSerial(gather(imat)),0))
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileNorm(path(ts),1);
+    assertElementsAlmostEqual(x,norm(SDCpckg.Reg.utils.vecNativeSerial(gather(imat)),1))
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileNorm(path(ts),2);
+    assertElementsAlmostEqual(x,norm(SDCpckg.Reg.utils.vecNativeSerial(gather(imat)),2))
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileNorm(path(ts),-inf);
+    assertElementsAlmostEqual(x,norm(SDCpckg.Reg.utils.vecNativeSerial(gather(imat)),-inf))
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileNorm(path(ts),inf);
+    assertElementsAlmostEqual(x,norm(SDCpckg.Reg.utils.vecNativeSerial(gather(imat)),inf))
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileNorm(path(ts),'fro');
+    assertElementsAlmostEqual(x,norm(SDCpckg.Reg.utils.vecNativeSerial(gather(imat)),'fro'))
 end
 
 function test_distributed_FileNorm_single_real
@@ -247,19 +247,19 @@ function test_distributed_FileNorm_single_real
     imat = single(distributed.rand(2,2,4,5,6));
     ts   = ConDir();
     td   = ConDistDirs();
-    SDCpckg.io.NativeBin.dist.FileWrite(path(ts),imat,1,path(td));
-    x    = SDCpckg.io.NativeBin.dist.FileNorm(path(ts),0);
-    assertElementsAlmostEqual(x,norm(SDCpckg.utils.vecNativeSerial(gather(imat)),0))
-    x    = SDCpckg.io.NativeBin.dist.FileNorm(path(ts),1);
-    assertElementsAlmostEqual(x,norm(SDCpckg.utils.vecNativeSerial(gather(imat)),1))
-    x    = SDCpckg.io.NativeBin.dist.FileNorm(path(ts),2);
-    assertElementsAlmostEqual(x,norm(SDCpckg.utils.vecNativeSerial(gather(imat)),2))
-    x    = SDCpckg.io.NativeBin.dist.FileNorm(path(ts),-inf);
-    assertElementsAlmostEqual(x,norm(SDCpckg.utils.vecNativeSerial(gather(imat)),-inf))
-    x    = SDCpckg.io.NativeBin.dist.FileNorm(path(ts),inf);
-    assertElementsAlmostEqual(x,norm(SDCpckg.utils.vecNativeSerial(gather(imat)),inf))
-    x    = SDCpckg.io.NativeBin.dist.FileNorm(path(ts),'fro');
-    assertElementsAlmostEqual(x,norm(SDCpckg.utils.vecNativeSerial(gather(imat)),'fro'))
+    SDCpckg.Reg.io.NativeBin.dist.FileWrite(path(ts),imat,1,path(td));
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileNorm(path(ts),0);
+    assertElementsAlmostEqual(x,norm(SDCpckg.Reg.utils.vecNativeSerial(gather(imat)),0))
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileNorm(path(ts),1);
+    assertElementsAlmostEqual(x,norm(SDCpckg.Reg.utils.vecNativeSerial(gather(imat)),1))
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileNorm(path(ts),2);
+    assertElementsAlmostEqual(x,norm(SDCpckg.Reg.utils.vecNativeSerial(gather(imat)),2))
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileNorm(path(ts),-inf);
+    assertElementsAlmostEqual(x,norm(SDCpckg.Reg.utils.vecNativeSerial(gather(imat)),-inf))
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileNorm(path(ts),inf);
+    assertElementsAlmostEqual(x,norm(SDCpckg.Reg.utils.vecNativeSerial(gather(imat)),inf))
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileNorm(path(ts),'fro');
+    assertElementsAlmostEqual(x,norm(SDCpckg.Reg.utils.vecNativeSerial(gather(imat)),'fro'))
 end
 
 function test_distributed_FileNorm_single_complex
@@ -268,19 +268,19 @@ function test_distributed_FileNorm_single_complex
     imat = complex(imat,imat);
     ts   = ConDir();
     td   = ConDistDirs();
-    SDCpckg.io.NativeBin.dist.FileWrite(path(ts),imat,1,path(td));
-    x    = SDCpckg.io.NativeBin.dist.FileNorm(path(ts),0);
-    assertElementsAlmostEqual(x,norm(SDCpckg.utils.vecNativeSerial(gather(imat)),0))
-    x    = SDCpckg.io.NativeBin.dist.FileNorm(path(ts),1);
-    assertElementsAlmostEqual(x,norm(SDCpckg.utils.vecNativeSerial(gather(imat)),1))
-    x    = SDCpckg.io.NativeBin.dist.FileNorm(path(ts),2);
-    assertElementsAlmostEqual(x,norm(SDCpckg.utils.vecNativeSerial(gather(imat)),2))
-    x    = SDCpckg.io.NativeBin.dist.FileNorm(path(ts),-inf);
-    assertElementsAlmostEqual(x,norm(SDCpckg.utils.vecNativeSerial(gather(imat)),-inf))
-    x    = SDCpckg.io.NativeBin.dist.FileNorm(path(ts),inf);
-    assertElementsAlmostEqual(x,norm(SDCpckg.utils.vecNativeSerial(gather(imat)),inf))
-    x    = SDCpckg.io.NativeBin.dist.FileNorm(path(ts),'fro');
-    assertElementsAlmostEqual(x,norm(SDCpckg.utils.vecNativeSerial(gather(imat)),'fro'))
+    SDCpckg.Reg.io.NativeBin.dist.FileWrite(path(ts),imat,1,path(td));
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileNorm(path(ts),0);
+    assertElementsAlmostEqual(x,norm(SDCpckg.Reg.utils.vecNativeSerial(gather(imat)),0))
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileNorm(path(ts),1);
+    assertElementsAlmostEqual(x,norm(SDCpckg.Reg.utils.vecNativeSerial(gather(imat)),1))
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileNorm(path(ts),2);
+    assertElementsAlmostEqual(x,norm(SDCpckg.Reg.utils.vecNativeSerial(gather(imat)),2))
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileNorm(path(ts),-inf);
+    assertElementsAlmostEqual(x,norm(SDCpckg.Reg.utils.vecNativeSerial(gather(imat)),-inf))
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileNorm(path(ts),inf);
+    assertElementsAlmostEqual(x,norm(SDCpckg.Reg.utils.vecNativeSerial(gather(imat)),inf))
+    x    = SDCpckg.Reg.io.NativeBin.dist.FileNorm(path(ts),'fro');
+    assertElementsAlmostEqual(x,norm(SDCpckg.Reg.utils.vecNativeSerial(gather(imat)),'fro'))
 end
 
 function test_distributed_FileTranspose_double_real
@@ -295,11 +295,11 @@ function test_distributed_FileTranspose_double_real
         tout     = ConDir();
         tDistOut = ConDistDirs();    
         tg       = ConDir();
-        SDCpckg.io.NativeBin.serial.FileWrite(path(td),imat);
-        SDCpckg.io.NativeBin.dist.FileDistribute(path(td),path(tin),path(tDistIn),tt);
-        SDCpckg.io.NativeBin.dist.FileTranspose(path(tin),path(tout),path(tDistOut));
-        SDCpckg.io.NativeBin.dist.FileGather(path(tout),path(tg));
-        x    = SDCpckg.io.NativeBin.serial.FileRead(path(tg));
+        SDCpckg.Reg.io.NativeBin.serial.FileWrite(path(td),imat);
+        SDCpckg.Reg.io.NativeBin.dist.FileDistribute(path(td),path(tin),path(tDistIn),tt);
+        SDCpckg.Reg.io.NativeBin.dist.FileTranspose(path(tin),path(tout),path(tDistOut));
+        SDCpckg.Reg.io.NativeBin.dist.FileGather(path(tout),path(tg));
+        x    = SDCpckg.Reg.io.NativeBin.serial.FileRead(path(tg));
         imat = reshape(imat,[prod(nn(1:tt)) prod(nn(tt+1:t))]);
         imat = transpose(imat);
         imat = reshape(imat,[nn(tt+1:t) nn(1:tt)]);
@@ -321,11 +321,11 @@ function test_distributed_FileTranspose_double_complex
         tout     = ConDir();
         tDistOut = ConDistDirs();    
         tg       = ConDir();
-        SDCpckg.io.NativeBin.serial.FileWrite(path(td),imat);
-        SDCpckg.io.NativeBin.dist.FileDistribute(path(td),path(tin),path(tDistIn),tt);
-        SDCpckg.io.NativeBin.dist.FileTranspose(path(tin),path(tout),path(tDistOut));
-        SDCpckg.io.NativeBin.dist.FileGather(path(tout),path(tg));
-        x    = SDCpckg.io.NativeBin.serial.FileRead(path(tg));
+        SDCpckg.Reg.io.NativeBin.serial.FileWrite(path(td),imat);
+        SDCpckg.Reg.io.NativeBin.dist.FileDistribute(path(td),path(tin),path(tDistIn),tt);
+        SDCpckg.Reg.io.NativeBin.dist.FileTranspose(path(tin),path(tout),path(tDistOut));
+        SDCpckg.Reg.io.NativeBin.dist.FileGather(path(tout),path(tg));
+        x    = SDCpckg.Reg.io.NativeBin.serial.FileRead(path(tg));
         imat = reshape(imat,[prod(nn(1:tt)) prod(nn(tt+1:t))]);
         imat = transpose(imat);
         imat = reshape(imat,[nn(tt+1:t) nn(1:tt)]);
@@ -346,11 +346,11 @@ function test_distributed_FileTranspose_single_real
         tout     = ConDir();
         tDistOut = ConDistDirs();    
         tg       = ConDir();
-        SDCpckg.io.NativeBin.serial.FileWrite(path(td),imat,'single');
-        SDCpckg.io.NativeBin.dist.FileDistribute(path(td),path(tin),path(tDistIn),tt);
-        SDCpckg.io.NativeBin.dist.FileTranspose(path(tin),path(tout),path(tDistOut));
-        SDCpckg.io.NativeBin.dist.FileGather(path(tout),path(tg));
-        x    = SDCpckg.io.NativeBin.serial.FileRead(path(tg),'single');
+        SDCpckg.Reg.io.NativeBin.serial.FileWrite(path(td),imat,'single');
+        SDCpckg.Reg.io.NativeBin.dist.FileDistribute(path(td),path(tin),path(tDistIn),tt);
+        SDCpckg.Reg.io.NativeBin.dist.FileTranspose(path(tin),path(tout),path(tDistOut));
+        SDCpckg.Reg.io.NativeBin.dist.FileGather(path(tout),path(tg));
+        x    = SDCpckg.Reg.io.NativeBin.serial.FileRead(path(tg),'single');
         imat = reshape(imat,[prod(nn(1:tt)) prod(nn(tt+1:t))]);
         imat = transpose(imat);
         imat = reshape(imat,[nn(tt+1:t) nn(1:tt)]);
@@ -372,11 +372,11 @@ function test_distributed_FileTranspose_single_complex
         tout     = ConDir();
         tDistOut = ConDistDirs();    
         tg       = ConDir();
-        SDCpckg.io.NativeBin.serial.FileWrite(path(td),imat,'single');
-        SDCpckg.io.NativeBin.dist.FileDistribute(path(td),path(tin),path(tDistIn),tt);
-        SDCpckg.io.NativeBin.dist.FileTranspose(path(tin),path(tout),path(tDistOut));
-        SDCpckg.io.NativeBin.dist.FileGather(path(tout),path(tg));
-        x    = SDCpckg.io.NativeBin.serial.FileRead(path(tg),'single');
+        SDCpckg.Reg.io.NativeBin.serial.FileWrite(path(td),imat,'single');
+        SDCpckg.Reg.io.NativeBin.dist.FileDistribute(path(td),path(tin),path(tDistIn),tt);
+        SDCpckg.Reg.io.NativeBin.dist.FileTranspose(path(tin),path(tout),path(tDistOut));
+        SDCpckg.Reg.io.NativeBin.dist.FileGather(path(tout),path(tg));
+        x    = SDCpckg.Reg.io.NativeBin.serial.FileRead(path(tg),'single');
         imat = reshape(imat,[prod(nn(1:tt)) prod(nn(tt+1:t))]);
         imat = transpose(imat);
         imat = reshape(imat,[nn(tt+1:t) nn(1:tt)]);

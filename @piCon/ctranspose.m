@@ -23,8 +23,8 @@ y.exsize(:,2) = y.exsize(:,2) + y.exsize(end,1);
 
 if x.imcoddims == 1
     y.imcoddims = 2;
-    y.imcodpart = SDCpckg.utils.defaultDistribution(size(y,2));
+    y.imcodpart = SDCpckg.Reg.utils.defaultDistribution(size(y,2));
 else
     y.imcoddims = 1;    
-    y.imcodpart = SDCpckg.utils.defaultDistribution(size(y,1));
+    y.imcodpart = SDCpckg.Reg.utils.defaultDistribution(size(y,1));
 end

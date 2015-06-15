@@ -5,7 +5,7 @@ function y = vertcat(varargin)
 %
 %   See also iCon.horzcat
 
-varargin = cellfun(@(x) SDCpckg.serial.stripicon(x),...
+varargin = cellfun(@(x) SDCpckg.Reg.serial.stripicon(x),...
            varargin,'UniformOutput',false');
 y = vertcat(varargin{:});
 if isa(y, 'distributed')

@@ -60,9 +60,9 @@ function out = datacontests(varargin)
 %   Steven L. Eddins
 %   Copyright 2009 The MathWorks, Inc.
 
-% Make sure matlabpool is open
-if matlabpool('size') == 0
-    error('Matlab pool is not on!');
+% Make sure parallel pool is open
+if parpool_size() == 0
+    error('Parallel pool is not on!');
 end
 
 % Make sure SeisDataContainer is initted

@@ -52,16 +52,16 @@ range(1) = 1;
 range(2) = 5;
 
 if (exist('newtest','dir') == 1) 
-SDCpckg.io.isFileClean('newtest');
+SDCpckg.Reg.io.isFileClean('newtest');
 end
 
-header = SDCpckg.io.JavaSeis.serial.HeaderWrite(x,'double',0);
-SDCpckg.io.JavaSeis.serial.FileAlloc('newtest',header) ;
+header = SDCpckg.Reg.io.JavaSeis.serial.HeaderWrite(x,'double',0);
+SDCpckg.Reg.io.JavaSeis.serial.FileAlloc('newtest',header) ;
 % fill x
 x = rand(x) ;
-SDCpckg.io.JavaSeis.serial.FileWrite('newtest',x) ;
-% [myslice header] = SDCpckg.io.JavaSeis.serial.FileReadLeftSlice('newtest',slice) ;
-[mychunk header] = SDCpckg.io.JavaSeis.serial.FileReadLeftChunk('newtest',range,slice) ;
+SDCpckg.Reg.io.JavaSeis.serial.FileWrite('newtest',x) ;
+% [myslice header] = SDCpckg.Reg.io.JavaSeis.serial.FileReadLeftSlice('newtest',slice) ;
+[mychunk header] = SDCpckg.Reg.io.JavaSeis.serial.FileReadLeftChunk('newtest',range,slice) ;
 
 % Dimension
 dimensions = size(mychunk);
@@ -113,7 +113,7 @@ end
 
 % Full File Norm
 %tStart1 = tic 
-MatNorm = SDCpckg.io.JavaSeis.serial.FileNorm('newtest',normexp,'double')
+MatNorm = SDCpckg.Reg.io.JavaSeis.serial.FileNorm('newtest',normexp,'double')
 %tElapsed1 = toc(tStart1)
 % Java call - Much faster
 %tStart2 = tic 
@@ -124,7 +124,7 @@ JSnorm2 = beta.javaseis.examples.io.FileNorm.Norm('newtest',normexp)
 % if not equal , then there is a problem ..
 
 if (exist('newtest2','dir') == 1) 
-SDCpckg.io.isFileClean('newtest2');
+SDCpckg.Reg.io.isFileClean('newtest2');
 end
 
 %Test case4 ;
@@ -133,12 +133,12 @@ slice = [] ;
 range(1) = 1;
 range(2) = 5;
 
-header2 = SDCpckg.io.JavaSeis.serial.HeaderWrite(x2,'double',0);
-SDCpckg.io.JavaSeis.serial.FileAlloc('newtest2',header2) ;
+header2 = SDCpckg.Reg.io.JavaSeis.serial.HeaderWrite(x2,'double',0);
+SDCpckg.Reg.io.JavaSeis.serial.FileAlloc('newtest2',header2) ;
 % fill x
 x2 = rand(x2) ;
 % Write in JS file
-SDCpckg.io.JavaSeis.serial.FileWrite('newtest2',x2) ;
+SDCpckg.Reg.io.JavaSeis.serial.FileWrite('newtest2',x2) ;
 
 % Return a multi-dimensional Java array to be used in FilePlus.m
 beta.javaseis.examples.io.FileAdd.add('newtest','newtest2');

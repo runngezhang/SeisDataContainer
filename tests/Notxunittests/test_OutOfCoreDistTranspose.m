@@ -5,7 +5,7 @@ function test_OutOfCoreDistTranspose(varargin)
     else
         trials = 1;
     end
-    labs = matlabpool('size');
+    labs = parpool_size();
     for t=1:trials
 
         all = tic;
@@ -19,8 +19,8 @@ function test_OutOfCoreDistTranspose(varargin)
         pIn = [prod(ds) prod(de)];
         pOut = [prod(de) prod(ds)];
 
-        dds = prod(ds(1:end-1))*SDCpckg.utils.defaultDistribution(ds(end));
-        dde = prod(de(1:end-1))*SDCpckg.utils.defaultDistribution(de(end));
+        dds = prod(ds(1:end-1))*SDCpckg.Reg.utils.defaultDistribution(ds(end));
+        dde = prod(de(1:end-1))*SDCpckg.Reg.utils.defaultDistribution(de(end));
 
         D = 1:prod(dIn);
         D = reshape(D,dIn);
@@ -38,24 +38,24 @@ function test_OutOfCoreDistTranspose(varargin)
         end
 
         tds=ConDir();
-        SDCpckg.io.NativeBin.dist.FileWrite(path(tds),D,0);
+        SDCpckg.Reg.io.NativeBin.dist.FileWrite(path(tds),D,0);
         tdd=ConDir();
         tdds=ConDistDirs();
-        SDCpckg.io.NativeBin.dist.FileDistribute(path(tds),path(tdd),path(tdds),lds)
+        SDCpckg.Reg.io.NativeBin.dist.FileDistribute(path(tds),path(tdd),path(tdds),lds)
         tdt=ConDir();
         oofcs = tic;
-        SDCpckg.io.NativeBin.dist.FileTranspose(path(tds),path(tdt),lds)
+        SDCpckg.Reg.io.NativeBin.dist.FileTranspose(path(tds),path(tdt),lds)
         oofcs = toc(oofcs);
-        dummy = SDCpckg.io.NativeBin.dist.FileRead(path(tdt));
+        dummy = SDCpckg.Reg.io.NativeBin.dist.FileRead(path(tdt));
         assert(isequal(In',reshape(dummy,pOut)),'error in serial')
         tddt=ConDir();
         tddts=ConDistDirs();
         oofcd = tic;
-        SDCpckg.io.NativeBin.dist.FileTranspose(path(tdd),path(tddt),path(tddts))%,partition
+        SDCpckg.Reg.io.NativeBin.dist.FileTranspose(path(tdd),path(tddt),path(tddts))%,partition
         oofcd = toc(oofcd);
         tdg = ConDir();
-        SDCpckg.io.NativeBin.dist.FileGather(path(tddt),path(tdg));
-        dummy = SDCpckg.io.NativeBin.serial.FileRead(path(tdg));
+        SDCpckg.Reg.io.NativeBin.dist.FileGather(path(tddt),path(tdg));
+        dummy = SDCpckg.Reg.io.NativeBin.serial.FileRead(path(tdg));
         assert(isequal(In',reshape(dummy,pOut)),'error in distributed')
         %return
 
@@ -73,15 +73,15 @@ end
 
 function De = test_ooftrans_helper(Ds,De)
 
-    labs = matlabpool('size');
-    hdri = SDCpckg.basicHeaderStructFromX(Ds);
-    hdri = SDCpckg.addDistHeaderStructFromX(hdri,Ds);
+    labs = parpool_size();
+    hdri = SDCpckg.Reg.basicHeaderStructFromX(Ds);
+    hdri = SDCpckg.Reg.addDistHeaderStructFromX(hdri,Ds);
     %hdri.distribution
 
     ds = hdri.size(1:hdri.distribution.dim);
     pds = prod(ds);
     pds1 = prod(ds(1:end-1));
-    dds = pds1*SDCpckg.utils.defaultDistribution(ds(end));
+    dds = pds1*SDCpckg.Reg.utils.defaultDistribution(ds(end));
     irng = zeros(labs,2);
     indx_rng = hdri.distribution.indx_rng;
     for l = 1:labs
@@ -92,7 +92,7 @@ function De = test_ooftrans_helper(Ds,De)
     de = hdri.size(hdri.distribution.dim+1:end);
     pde = prod(de);
     pde1 = prod(de(1:end-1));
-    dde = pde1*SDCpckg.utils.defaultDistribution(de(end));
+    dde = pde1*SDCpckg.Reg.utils.defaultDistribution(de(end));
 
     spmd
         lDs = getLocalPart(Ds);

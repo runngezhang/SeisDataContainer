@@ -5,6 +5,6 @@ if(~isa(a,'oMatCon'))
     error('Input parameter should be data container')
 end
 td = ConDir();
-SDCpckg.io.NativeBin.serial.FileReal(path(a.pathname),path(td));    
+SDCpckg.Reg.io.NativeBin.serial.FileReal(path(a.pathname),path(td));    
 y = oMatCon.load(td);
 end

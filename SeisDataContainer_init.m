@@ -30,15 +30,15 @@ function  SeisDataContainer_init(varargin)
     global SDCdefaultIOdist;
     global SDCdebugFlag;
     MBsize = 1024*1024;
-    doubleSize = SDCpckg.utils.getByteSize('double');
+    doubleSize = SDCpckg.Reg.utils.getByteSize('double');
 
     % parse varargin
     p = inputParser;
     p.addParamValue('SDCglobalTmpDir',getenv('GLOBTMPDIR'),@ischar);
     p.addParamValue('SDClocalTmpDir',getenv('TMPDIR'),@ischar);
-    p.addParamValue('SDCbufferSize',doubleSize*MBsize,@(x)isnumeric(x)||isscalar(x));
-    p.addParamValue('SDCdefaultIOdist',0,@(x)isnumeric(x)||isscalar(x));
-    p.addParamValue('SDCdebugFlag',0,@(x)isnumeric(x)||isscalar(x));
+    p.addParamValue('SDCbufferSize',doubleSize*MBsize,@(x)isnumeric(x)&&isscalar(x));
+    p.addParamValue('SDCdefaultIOdist',0,@(x)isnumeric(x)&&isscalar(x));
+    p.addParamValue('SDCdebugFlag',0,@(x)isnumeric(x)&&isscalar(x));
     p.addParamValue('Verbose',1,@isnumeric);
     p.parse(varargin{:});
     verbose = p.Results.Verbose;
@@ -84,7 +84,7 @@ function  SeisDataContainer_init(varargin)
 
     % check gloabl directory on the workers
     % and create local temporary directories
-    if matlabpool('size') > 0
+    if parpool_size() > 0
         spmd
             assert(isdir(SDCglobalTmpDir),...
                 'Global temporary directory missing on the worker %d.',labindex)
@@ -99,7 +99,7 @@ function  SeisDataContainer_init(varargin)
     end
 
     % set buffer size
-    SDCbufferSize = SDCpckg.utils.getByteSize('double')*p.Results.SDCbufferSize;
+    SDCbufferSize = SDCpckg.Reg.utils.getByteSize('double')*p.Results.SDCbufferSize;
     if verbose
         fprintf('IO buffer size set to %d MB\n',SDCbufferSize/MBsize);
     end

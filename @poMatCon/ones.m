@@ -18,7 +18,7 @@ function x = ones(varargin)
 %
 %   Note: The size inputs M, N, and P... should be nonnegative integers. 
 %   Negative integers are treated as 0.
-    stringIndex = SDCpckg.utils.getFirstStringIndex(varargin{:});    
+    stringIndex = SDCpckg.Reg.utils.getFirstStringIndex(varargin{:});    
     if(stringIndex)
         xsize = cell2mat(varargin(1:stringIndex-1));
         p = inputParser;
@@ -31,12 +31,12 @@ function x = ones(varargin)
         xprecision = 'double';
     end
     
-    td = SDCpckg.io.makeDir();
-    header = SDCpckg.basicHeaderStruct...
+    td = SDCpckg.Reg.io.makeDir();
+    header = SDCpckg.Reg.basicHeaderStruct...
         (xsize,xprecision,0);
-    header = SDCpckg.addDistHeaderStruct...
+    header = SDCpckg.Reg.addDistHeaderStruct...
         (header,header.dims,[]);
-    SDCpckg.io.NativeBin.serial.FileOnes(td,header);
+    SDCpckg.Reg.io.NativeBin.serial.FileOnes(td,header);
     if(stringIndex)
         x = oMatCon.load(td,p.Unmatched);
     else
