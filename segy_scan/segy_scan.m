@@ -22,9 +22,11 @@ function segy_scan(filepath, file_filter, header_byte_locations, ...
     %% Initialize the job meta structure
     metadata = {};
     
+    
     %% Find and filter the list of segy files
     [files_in,nfiles] = directory_scan(filepath,file_filter); 
     files_in.names = sort_nat(files_in.names);  
+    
     
     %% Make the compressed trace header files
     for i_file = 1:nfiles
