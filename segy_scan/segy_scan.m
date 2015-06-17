@@ -23,7 +23,7 @@ function segy_scan(filepath, file_filter, header_byte_locations, ...
     metadata = {};
     
     %% Find and filter the list of segy files
-    [files_in,nfiles] = directory_scan(filepath,filename_string); 
+    [files_in,nfiles] = directory_scan(filepath,file_filter); 
     files_in.names = sort_nat(files_in.names);  
     
     %% Make the compressed trace header files
@@ -35,17 +35,17 @@ function segy_scan(filepath, file_filter, header_byte_locations, ...
         [path, name, ext] = fileparts(filename);
      
         if(strcmp(ext,'.segy') | strcmp(ext, '.sgy') & ...
-           (exist(strcat(output_dir,name, '.mat_lite'), 'file') ~= 2))
+           (exist(strcat(filepath,name, '.mat_lite'), 'file') ~= 2))
             
-            make_compressed_header_file(strcat(filepath, filename),il_byte,...
-                                        xl_byte, offset_byte,block_size); 
+            make_compressed_header_file(strcat(filepath, filename),...
+                header_byte_locations,block_size); 
         end
     end % segy file loop
     
     %% Make the data blocks
     metadata.block_headers = [];
     metadata.ntraces = 0;
-    for i_file = 1:n_files
+    for i_file = 1:nfiles
         
         % figure out the header file
         filename = files_in.names{i_file};                         

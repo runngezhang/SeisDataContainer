@@ -89,7 +89,7 @@ function header_file_init(seismic, block_size, ...
         
         % store to add on during loop
         last_byte = compressed_header(end,end)+trc_length;
-        compressed_header(:,end) = trace_ilxl_bytes(:,end)+ ...
+        compressed_header(:,end) = compressed_header(:,end)+ ...
             skip_textual_binary;
         
         % write out the structure
@@ -101,7 +101,7 @@ function header_file_init(seismic, block_size, ...
     leftovers = seismic.n_traces-loop_end*blocktr;
 
     % Read the remaining trace headers (if any)
-    clearvars tmptrheader trace_header bytes_to_samples trace_ilxl_bytes
+    clearvars tmptrheader trace_header bytes_to_samples compressed_header
     if leftovers > 0
         tmptr = fread(seismic.fid,[120+2*seismic.n_samples,leftovers],'uint16=>uint16');
         tmptr = tmptr(1:120,:);
@@ -117,16 +117,16 @@ function header_file_init(seismic, block_size, ...
         
         % byte location of start of block
         compressed_header(:,end) = last_byte+(trc_head:trc_head+...
-                                              trc_length:blocktr* ...
+                                              trc_length:leftovers* ...
                                               (trc_length+trc_head));
         
         % store to add on during loop
         last_byte = compressed_header(end,end)+trc_length;
-        compressed_header(:,end) = trace_ilxl_bytes(:,end)+ ...
+        compressed_header(:,end) = compressed_header(:,end)+ ...
             skip_textual_binary;
         
         % write out the structure
-        fwrite(fid_write,reshape(compressed_header_bytes',[],1), ...
+        fwrite(fid_write,reshape(compressed_header',[],1), ...
                'double');
     end
 
@@ -136,7 +136,7 @@ function header_file_init(seismic, block_size, ...
 end
 
 
-function seismic_header = extract_seismic_header(segyfile)
+function seismic = extract_seismic_header(segyfile)
 %% -------------------------Function Definition-----------------------
 %  Extracts the seismic file header into a matlab structure
 %  
