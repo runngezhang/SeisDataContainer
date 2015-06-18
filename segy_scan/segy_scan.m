@@ -67,6 +67,7 @@ function segy_scan(filepath, file_filter, header_byte_locations, ...
         
     end
     
+    metadata.n_blocks = size(metadata.block_headers,1);
     
     %% Save the metafile
     save(metafile, '-struct', 'metadata', '-v7.3');

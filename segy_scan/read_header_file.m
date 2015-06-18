@@ -22,12 +22,17 @@ function seismic = read_header_file(header_file)
     
     seismic.n_fields = tmp_seismic(n_fields_length); 
     
+    index = n_fields_length +1;
+    for field = 1:seismic.n_fields
+        seismic.byte_locations(field) = tmp_seismic(index);
+        index = index+1;
+    end
     
     
-    % trace header value locations
     
-    traces_length = n_fields_length + 1;
-
+    
+    
+    traces_length = index;
 
 
     seismic.compressed_headers = reshape(tmp_seismic(traces_length:end),...

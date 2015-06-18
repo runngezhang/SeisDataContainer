@@ -24,25 +24,47 @@ function block_headers = make_block_headers(header_file, block_size)
         end_ind = block * block_size;
         
         headers = seismic.compressed_headers(start_ind:end_ind, :);
-        
-        % Get the min and max value of each field
-        ind = 1;
-        block_header = [];
-        for field =1:seismic.n_fields
-            
-            block_header(ind) = min(headers(:,field));
-            ind = ind + 1;
-            block_header(ind) = max(headers(:, field));
-            ind = ind + 1;
-            
-        end
-        
-        % Get the byte locations from the end
-        block_header(end+1) = min(headers(:, end));
-        block_header(end+1) = max(headers(:,end));
-        
+      
+        block_header = populate_block_header(header_file, seismic, ...
+                                             headers, block_size);
+      
         block_headers = [block_headers; block_header];
     end
     
+    % Left overs
+    block_size = seismic.n_traces - (n_blocks * block_size);
+    if block_size > 0
+        start_ind = end_ind;
+        headers = seismic.compressed_headers(start_ind:end, :);
+        
+        block_header = populate_block_header(header_file, seismic, ...
+                                             headers, block_size);
+       
+        block_headers = [block_headers; block_header];
+    end
+    
+end
 
+function block_header = populate_block_header(header_file, seismic, ...
+                                              headers, block_size)
+    
+    block_header = {header_file};
+    
+    % Get the min and max value of each field
+    ind = 2;
+    for field =1:seismic.n_fields
+        
+        block_header{ind} = min(headers(:,field));
+        ind = ind + 1;
+        block_header{ind} = max(headers(:, field));
+        ind = ind + 1;
+        
+    end
+    
+    % Get the byte locations
+    block_header{end+1} = min(headers(:, end));
+    
+    % Number of traces in block
+    block_header{end+1} = block_size;   
+    
 end

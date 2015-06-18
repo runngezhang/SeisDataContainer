@@ -44,10 +44,16 @@ function header_file_init(seismic, block_size, ...
     filepath_binary = [filepath_binary,pad_filepath];
 
     % write basic information into .mat_orig_lite file
-    fid_write = fopen(matfile_lite,'w');                           
-    fwrite(fid_write,[filepath_binary';seismic.file_type;seismic.s_rate;...
+    fid_write = fopen(matfile_lite,'w');   
+    summary_header = [filepath_binary';seismic.file_type;seismic.s_rate;...
                       seismic.n_samples;seismic.n_traces; ...
-                      length(header_byte_locations)], 'double');
+                      length(header_byte_locations)];
+    for byte_loc = 1:length(header_byte_locations)
+        summary_header = [summary_header, ...
+                          header_byte_locations(byte_loc)]
+    end
+    
+    fwrite(fid_write, summary_header, 'double');
     
     skip_textual_binary = 3600; % Length of EBCIDIC header (bytes)
     trc_head = 240;             % Length of Trace Header (bytes)
