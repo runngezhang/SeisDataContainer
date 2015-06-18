@@ -1,4 +1,5 @@
-function [seismic, traces, ilxl_read, offset_read] = node_segy_read(job_meta_path,vol_index,i_block)
+function [seismic, traces, metadata] = node_segy_read(job_meta_path, ...
+                                                  vol_index, i_block)
 %% ------------------ FUNCTION DEFINITION ---------------------------------
 % node_segy_read: function to read traces from a specific block with a
 % scanned segy volume
