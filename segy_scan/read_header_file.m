@@ -28,10 +28,6 @@ function seismic = read_header_file(header_file)
         index = index+1;
     end
     
-    
-    
-    
-    
     traces_length = index;
 
 
