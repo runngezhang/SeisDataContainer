@@ -27,6 +27,7 @@ function block_headers = make_block_headers(header_file, block_size)
         
         % Get the min and max value of each field
         ind = 1;
+        block_header = [];
         for field =1:seismic.n_fields
             
             block_header(ind) = min(headers(:,field));
@@ -40,7 +41,7 @@ function block_headers = make_block_headers(header_file, block_size)
         block_header(end+1) = min(headers(:, end));
         block_header(end+1) = max(headers(:,end));
         
-        block_headers = (block_headers, block_header)
+        block_headers = [block_headers; block_header];
     end
     
 

@@ -51,22 +51,24 @@ function segy_scan(filepath, file_filter, header_byte_locations, ...
         
         % figure out the header file
         filename = files_in.names{i_file};                         
-        filepath = files_in.path{i_file};     
+        filepath = files_in.path{i_file};  
+        
         [path, name, ext] = fileparts(filename);
-        header_file = strcat(path, name, '.mat_lite');
+        header_file = strcat(filepath, name, '.mat_lite');
+        
+        seismic = read_header_file(header_file);
     
         % extract block headers mat_lite file
         block_headers = make_block_headers(header_file, block_size);
-        metadata.block_headers = [metadata.block_headers; block_headers];
+        metadata.block_headers = [metadata.block_headers, block_headers];
         
         % last two entries are min/max trace indices
-        metadata.ntraces = metadata.ntraces + ...
-            (block_traces(end) - block_traces(end-1));
+        metadata.ntraces = metadata.ntraces + seismic.n_traces;
         
     end
     
     
     %% Save the metafile
-    save(metafile, '-struct', 'metadata', '-v7,3');
+    save(metafile, '-struct', 'metadata', '-v7.3');
    
 end
