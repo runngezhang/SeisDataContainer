@@ -1,6 +1,6 @@
 function dims = size(A, dim)
 
-dims = A.exsize{1};
+dims = A.exsize;
 
 if nargin == 2
     dims = dims(dim);

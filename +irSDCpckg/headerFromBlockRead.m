@@ -1,4 +1,4 @@
-function header = headerFromBlockRead(trace_headers, ilxl)
+function header = headerFromBlockRead(segy_header, trace_headers)
 % Creates a header from irSeisDataContainer 
 
 
@@ -7,11 +7,11 @@ header.varName = 'time';
 header.varUnits = 'seconds';
 
 
-header.scale = (0:trace_headers.n_samples-1) * trace_headers.s_rate/1000;
+header.scale = (0:segy_header.n_samples-1) * segy_header.s_rate/1000;
 
-header.metadata = [ilxl(:,1), ilxl(:,2)];
+header.metadata = trace_headers;
 
-header.units = {'line_num', 'line_num'};
-header.labels = {'inline', 'xline'};
+header.units = {'lon', 'lon', 'lat', 'lat'};
+header.labels = {'srcx', 'srcy', 'recx', 'recy'};
 
 end

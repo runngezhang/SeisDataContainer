@@ -15,8 +15,8 @@ classdef segyCon < iroCon
         
         function obj = segyCon(metadata_path)
             
-            header = irSDCpckg.stackheaderFromMetadata(metadata_path);
-            dims = [size(header.scale,2) size(header.metadata,2)];
+            header = irSDCpckg.shotHeaderFromMetadata(metadata_path);
+            dims = [size(header.scale,2) size(header.metadata,1)];
             
             obj = obj@iroCon(header, dims);
             obj.pathname = metadata_path;
@@ -28,16 +28,16 @@ classdef segyCon < iroCon
             if key == 'block'
                 
                 block = value;
-                [trace_headers, data, ilxl, offset_read] =   ...
-                   node_segy_read(obj.pathname, ...
-                    num2str(volume),num2str(block));
+                [segy_header, traces, trace_headers] =   ...
+                   read_block(obj.header.metadata(block, :));
                 
                 
                 % make an in-core container
-                header = irSDCpckg.headerFromBlockRead(trace_headers, ilxl);
+                header = irSDCpckg.headerFromBlockRead(segy_header,...
+                                                       trace_headers);
                 
-                container = iriCon(header, size(data));
-                container.data = data;
+                container = iriCon(header, size(traces));
+                container.data = traces;
                 
             end
         end % function

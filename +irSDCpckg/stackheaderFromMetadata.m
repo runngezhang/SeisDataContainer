@@ -5,9 +5,8 @@ function header = stackheaderFromMetaData(metadata_path)
     header = {};
     
     header.varName = 'Segy Volume';
-    header.varUnits = 'Volumes';
     
-    header.scale = [0:metadata.nvols];
+    header.scale = [0:1];
     
     header.metadata = cat(1,(1:metadata.n_blocks), ...
                        metadata.block_keys(:,1)', ...

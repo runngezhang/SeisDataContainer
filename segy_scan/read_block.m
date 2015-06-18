@@ -1,5 +1,5 @@
 function [seismic_header, traces, trace_headers] = ...
-        read_block(job_meta_path, i_block)
+        read_block(block_header)
     %% ------------------ FUNCTION DEFINITION ---------------------------------
     % node_segy_read: function to read traces from a specific block with a
     % scanned segy volume
@@ -17,20 +17,10 @@ function [seismic_header, traces, trace_headers] = ...
 
     %%
 
-    job_meta = load(job_meta_path);
 
-    if i_block > job_meta.n_blocks
-        seismic = NaN;
-        traces = NaN;
-        metadata = NaN;
-        fprintf('Job only has %d blocks...\n',job_meta.n_blocks)
-        return
-    end
-
-    block_header = job_meta.block_headers(i_block, :);
-    seismic_header = read_header(block_header{1});
+    seismic_header = read_header_file(block_header{1});
     start_byte = block_header{end-1};
-    n_traces = block_header{end-2};
+    n_traces = block_header{end};
     
     [traces, trace_headers] = read_traces(seismic_header, start_byte, ...
                                           n_traces);
@@ -39,10 +29,13 @@ function [seismic_header, traces, trace_headers] = ...
     
 end
 
-function [traces,trace_headers] = read_traces_segy(seismic, ...
-                                                      start_byte,...
-                                                      n_traces_to_read)
+function [traces,trace_headers] = read_traces(seismic, ...
+                                              start_byte,...
+                                              n_traces_to_read)
 
+    % Scroll back to the header
+    start_byte = start_byte - 240;
+    
     fid = fopen(char(seismic.filepath),'r','b');
     fseek(fid,start_byte,'bof');
 

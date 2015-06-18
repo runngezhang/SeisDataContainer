@@ -60,7 +60,7 @@ function segy_scan(filepath, file_filter, header_byte_locations, ...
     
         % extract block headers mat_lite file
         block_headers = make_block_headers(header_file, block_size);
-        metadata.block_headers = [metadata.block_headers, block_headers];
+        metadata.block_headers = [metadata.block_headers; block_headers];
         
         % last two entries are min/max trace indices
         metadata.ntraces = metadata.ntraces + seismic.n_traces;
