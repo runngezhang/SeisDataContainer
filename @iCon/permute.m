@@ -38,7 +38,7 @@ end
 y = iCon(permute(x.data,perm));
 
 % Set variables
-y.header      = SDCpckg.permuteHeaderStruct(x.header,perm);
+y.header      = SDCpckg.Reg.permuteHeaderStruct(x.header,perm);
 y.perm        = toperm;
 y.exsize      = ngsize;
 y.header.size = nisize;

@@ -5,17 +5,17 @@ end
 function test_serial_basicHeaderStruct
 %%
     imat=rand(13,11,9);
-    hdrx=SDCpckg.basicHeaderStructFromX(imat);
-    hdrb=SDCpckg.basicHeaderStruct(hdrx.size,hdrx.precision,hdrx.complex);
+    hdrx=SDCpckg.Reg.basicHeaderStructFromX(imat);
+    hdrb=SDCpckg.Reg.basicHeaderStruct(hdrx.size,hdrx.precision,hdrx.complex);
     assert(isequal(hdrx,hdrb))
 end
 
 function test_distributed_basicHeaderStruct_real
 %%
     imat = distributed.rand(2,2,4);
-    hdrb = SDCpckg.basicHeaderStructFromX(imat);
-    hdrx = SDCpckg.addDistHeaderStructFromX(hdrb,imat);
-    hdrd = SDCpckg.addDistHeaderStruct(hdrb,hdrx.distribution.dim,hdrx.distribution.partition);
+    hdrb = SDCpckg.Reg.basicHeaderStructFromX(imat);
+    hdrx = SDCpckg.Reg.addDistHeaderStructFromX(hdrb,imat);
+    hdrd = SDCpckg.Reg.addDistHeaderStruct(hdrb,hdrx.distribution.dim,hdrx.distribution.partition);
     assert(isequal(hdrx,hdrd),'distributions do not match')
 end
 
@@ -23,9 +23,9 @@ function test_distributed_basicHeaderStruct_complex
 %%
     imat = distributed.rand(2,2,4);
     imat = complex(imat,imat);
-    hdrb = SDCpckg.basicHeaderStructFromX(imat);
-    hdrx = SDCpckg.addDistHeaderStructFromX(hdrb,imat);
-    hdrd = SDCpckg.addDistHeaderStruct(hdrb,hdrx.distribution.dim,hdrx.distribution.partition);
+    hdrb = SDCpckg.Reg.basicHeaderStructFromX(imat);
+    hdrx = SDCpckg.Reg.addDistHeaderStructFromX(hdrb,imat);
+    hdrd = SDCpckg.Reg.addDistHeaderStruct(hdrb,hdrx.distribution.dim,hdrx.distribution.partition);
     assert(isequal(hdrx,hdrd),'distributions do not match')
 end
 
@@ -40,9 +40,9 @@ function test_getSliceIndex
         for j=1:J
             for i=1:I
                 S=S+1;
-                s=SDCpckg.utils.getSliceIndexV2S([I J K],[i j k]);
+                s=SDCpckg.Reg.utils.getSliceIndexV2S([I J K],[i j k]);
                 assert(s==S,'global index does not match');
-                v=SDCpckg.utils.getSliceIndexS2V([I J K],s);
+                v=SDCpckg.Reg.utils.getSliceIndexS2V([I J K],s);
                 assert(isequal([i j k],v),'index vectors do not match');
                 %disp([i j k s v]);
             end

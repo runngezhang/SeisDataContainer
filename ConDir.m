@@ -31,7 +31,7 @@ classdef (Sealed=true) ConDir < handle
                 assert(isdir(td.Path));
                 td.Home = fileparts(varargin{1});
             else
-                [td.Path td.Home] = SDCpckg.io.makeDir(varargin{:});
+                [td.Path td.Home] = SDCpckg.Reg.io.makeDir(varargin{:});
             end
             %if td.verbose; disp(['ConDir in constructor for ' td.Path]); end;
         end

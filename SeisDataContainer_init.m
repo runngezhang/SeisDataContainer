@@ -30,7 +30,7 @@ function  SeisDataContainer_init(varargin)
     global SDCdefaultIOdist;
     global SDCdebugFlag;
     MBsize = 1024*1024;
-    doubleSize = SDCpckg.utils.getByteSize('double');
+    doubleSize = SDCpckg.Reg.utils.getByteSize('double');
 
     % parse varargin
     p = inputParser;
@@ -84,7 +84,7 @@ function  SeisDataContainer_init(varargin)
 
     % check gloabl directory on the workers
     % and create local temporary directories
-    if matlabpool('size') > 0
+    if parpool_size() > 0
         spmd
             assert(isdir(SDCglobalTmpDir),...
                 'Global temporary directory missing on the worker %d.',labindex)
@@ -99,7 +99,7 @@ function  SeisDataContainer_init(varargin)
     end
 
     % set buffer size
-    SDCbufferSize = SDCpckg.utils.getByteSize('double')*p.Results.SDCbufferSize;
+    SDCbufferSize = SDCpckg.Reg.utils.getByteSize('double')*p.Results.SDCbufferSize;
     if verbose
         fprintf('IO buffer size set to %d MB\n',SDCbufferSize/MBsize);
     end

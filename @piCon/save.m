@@ -15,7 +15,7 @@ end
 header      = obj.header;
 status      = mkdir(dirname);
 assert(status,'Fatal error while creating directory %s',dirname);
-SDCpckg.io.NativeBin.serial.FileWrite(dirname,gather(double(obj)));
-SDCpckg.io.NativeBin.serial.HeaderWrite(dirname,header);
+SDCpckg.Reg.io.NativeBin.serial.FileWrite(dirname,gather(double(obj)));
+SDCpckg.Reg.io.NativeBin.serial.HeaderWrite(dirname,header);
 end
 

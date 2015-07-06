@@ -41,13 +41,13 @@ range(2) = 2 ;
 %range(1) = 1 ; % range is +1 compared to java
 %range(2) = 2 ;
 
-header = SDCpckg.io.JavaSeis.serial.HeaderWrite(x,'double',0)
-SDCpckg.io.JavaSeis.serial.FileAlloc('newtest',header) ;
+header = SDCpckg.Reg.io.JavaSeis.serial.HeaderWrite(x,'double',0)
+SDCpckg.Reg.io.JavaSeis.serial.FileAlloc('newtest',header) ;
 % fill x
 x = rand(x) ;
-SDCpckg.io.JavaSeis.serial.FileWrite('newtest',x) ;
-% [myslice header] = SDCpckg.io.JavaSeis.serial.FileReadLeftSlice('newtest',slice) ;
-[mychunk header] = SDCpckg.io.JavaSeis.serial.FileReadLeftChunk('newtest',range,slice) ;
+SDCpckg.Reg.io.JavaSeis.serial.FileWrite('newtest',x) ;
+% [myslice header] = SDCpckg.Reg.io.JavaSeis.serial.FileReadLeftSlice('newtest',slice) ;
+[mychunk header] = SDCpckg.Reg.io.JavaSeis.serial.FileReadLeftChunk('newtest',range,slice) ;
 
 y = mychunk 
 mysize = size(mychunk) 

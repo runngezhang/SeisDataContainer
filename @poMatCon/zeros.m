@@ -20,7 +20,7 @@ function x = zeros(varargin)
 %   Negative integers are treated as 0.
 %     global SDCdefaultIOdist;
     
-    stringIndex = SDCpckg.utils.getFirstStringIndex(varargin{:});    
+    stringIndex = SDCpckg.Reg.utils.getFirstStringIndex(varargin{:});    
     if(stringIndex)
         xsize = cell2mat(varargin(1:stringIndex-1));
         p = inputParser;
@@ -33,12 +33,12 @@ function x = zeros(varargin)
         xprecision = 'double';
     end
     
-    td = SDCpckg.io.makeDir();
-    header = SDCpckg.basicHeaderStruct...
+    td = SDCpckg.Reg.io.makeDir();
+    header = SDCpckg.Reg.basicHeaderStruct...
         (xsize,xprecision,0);
-    header = SDCpckg.addDistHeaderStruct...
+    header = SDCpckg.Reg.addDistHeaderStruct...
         (header,header.dims,[]);
-    SDCpckg.io.NativeBin.serial.FileAlloc(td,header);
+    SDCpckg.Reg.io.NativeBin.serial.FileAlloc(td,header);
     if(stringIndex)
         x = oMatCon.load(td,p.Unmatched);
     else
@@ -49,7 +49,7 @@ end
 % this fuction should be improved to something like:
 %     if SDCdefaultIOdist
 %         %header = addDistFile
-%         SDCpckg.io.NativeBin.dist.FileAlloc(td,header);
+%         SDCpckg.Reg.io.NativeBin.dist.FileAlloc(td,header);
 %     else
-%         SDCpckg.io.NativeBin.serial.FileAlloc(td,header);
+%         SDCpckg.Reg.io.NativeBin.serial.FileAlloc(td,header);
 %     end

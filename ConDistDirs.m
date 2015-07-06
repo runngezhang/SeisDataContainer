@@ -30,18 +30,18 @@ classdef (Sealed=true) ConDistDirs < handle
                 td.Home = fileparts(varargin{1}{1});
                 % could be exist(td)
                 tdHome = td.Home;
-                tdPaths = SDCpckg.utils.Cell2Composite(td.Paths);
+                tdPaths = SDCpckg.Reg.utils.Cell2Composite(td.Paths);
                 spmd
                     assert(isdir(tdHome));
                     assert(isdir(tdPaths));
                 end
             else
-                [td.Paths td.Home] = SDCpckg.io.makeDistDir(varargin{:});
+                [td.Paths td.Home] = SDCpckg.Reg.io.makeDistDir(varargin{:});
             end
             %if td.verbose; disp(['ConDistDirs in constructor for ' td.Paths]); end;
         end
         function e = exist(td)
-            tdPaths = SDCpckg.utils.Cell2Composite(td.Paths);
+            tdPaths = SDCpckg.Reg.utils.Cell2Composite(td.Paths);
             spmd
                 e = isdir(tdPaths);
             end
@@ -59,7 +59,7 @@ classdef (Sealed=true) ConDistDirs < handle
             end
         end
         function dir(td)
-            tdPaths = SDCpckg.utils.Cell2Composite(td.Paths);
+            tdPaths = SDCpckg.Reg.utils.Cell2Composite(td.Paths);
             spmd
                 fprintf('Content of directory %s:\n', tdPaths);
                 ls('-lR',tdPaths);
@@ -71,12 +71,12 @@ classdef (Sealed=true) ConDistDirs < handle
         function delete(td)
         if ~td.Keep
             tdHome = td.Home;
-            tdPaths = SDCpckg.utils.Cell2Composite(td.Paths);
+            tdPaths = SDCpckg.Reg.utils.Cell2Composite(td.Paths);
             spmd
                 assert(isdir(tdHome),'Fatal error: home directory %s is missing',tdHome);
                 assert(isdir(tdPaths),'Fatal error: directory %s is missing',tdPaths);
             end
-            SDCpckg.io.deleteDistDir(td.Paths)
+            SDCpckg.Reg.io.deleteDistDir(td.Paths)
             %if td.verbose; disp(['ConDistDirs: in destructor for ' td.Paths]); end;
         end
         end

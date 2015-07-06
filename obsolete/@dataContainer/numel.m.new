@@ -1,0 +1,12 @@
+function y = numel(varargin)
+    disp(length(varargin))
+    if isa(varargin{1},'dataContainer')
+        disp('me')
+        class(varargin{1})
+        y = prod(size(varargin{1}));
+    else
+        disp(varargin)
+       y = length(varargin{1})-2;
+    end
+end
+
