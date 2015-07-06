@@ -75,28 +75,28 @@ y.save(path(td),1);
 
 % testing different load modes and making sure the arguments match
 w = oMatCon.load(path(td),'copy',0);
-SDCpckg.isequalHeaderStruct(y.header,w.header)
+SDCpckg.Reg.isequalHeaderStruct(y.header,w.header)
 
 w = oMatCon.load(path(td),'copy',1);
-SDCpckg.isequalHeaderStruct(y.header,w.header)
+SDCpckg.Reg.isequalHeaderStruct(y.header,w.header)
 
 w = oMatCon.load(path(td),'readonly',0);
-SDCpckg.isequalHeaderStruct(y.header,w.header)
+SDCpckg.Reg.isequalHeaderStruct(y.header,w.header)
 
 w = oMatCon.load(path(td),'readonly',1);
-SDCpckg.isequalHeaderStruct(y.header,w.header)
+SDCpckg.Reg.isequalHeaderStruct(y.header,w.header)
 
 w = oMatCon.load(path(td),'copy',0,'readonly',0);
-SDCpckg.isequalHeaderStruct(y.header,w.header)
+SDCpckg.Reg.isequalHeaderStruct(y.header,w.header)
 
 w = oMatCon.load(path(td),'copy',0,'readonly',1);
-SDCpckg.isequalHeaderStruct(y.header,w.header)
+SDCpckg.Reg.isequalHeaderStruct(y.header,w.header)
 
 w = oMatCon.load(path(td),'copy',1,'readonly',0);
-SDCpckg.isequalHeaderStruct(y.header,w.header)
+SDCpckg.Reg.isequalHeaderStruct(y.header,w.header)
 
 w = oMatCon.load(path(td),'copy',1,'readonly',1);
-SDCpckg.isequalHeaderStruct(y.header,w.header)
+SDCpckg.Reg.isequalHeaderStruct(y.header,w.header)
 end % inputParser
 
 function test_oMatCon_invvec
@@ -230,7 +230,7 @@ y.save(path(td),1);
 % testing the header attributes after loading
 w = oMatCon.load(path(td));
 assertEqual(y,w);
-SDCpckg.isequalHeaderStruct(y.header,w.header)
+SDCpckg.Reg.isequalHeaderStruct(y.header,w.header)
 end % modifyHeader
 
 function test_oMatCon_mrdivide
@@ -371,7 +371,7 @@ y.save(path(td),1);
 z = oMatCon.load(td);
 assertEqual(x,z);
 assertEqual(z,y);
-SDCpckg.isequalHeaderStruct(y.header,z.header)
+SDCpckg.Reg.isequalHeaderStruct(y.header,z.header)
 end % save and load
 
 function test_oMatCon_sign

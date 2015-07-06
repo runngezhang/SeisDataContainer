@@ -22,6 +22,6 @@ else
     end
     chunk = cell2mat(x(i));
     slice = cell2mat(x(i+1:end));
-    SDCpckg.io.NativeBin.serial.FileWriteLeftChunk...
+    SDCpckg.Reg.io.NativeBin.serial.FileWriteLeftChunk...
         (path(obj.pathname),dataa,[chunk(1) chunk(end)],slice);
 end

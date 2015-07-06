@@ -10,6 +10,6 @@ if(isa(b,'oMatCon'))
     bb = path(b.pathname);
 end
 td = ConDir();
-SDCpckg.io.NativeBin.serial.FilePower(aa,bb,path(td));    
+SDCpckg.Reg.io.NativeBin.serial.FilePower(aa,bb,path(td));    
 y = oMatCon.load(td);
 end

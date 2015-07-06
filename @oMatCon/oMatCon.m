@@ -41,12 +41,12 @@ methods
 
             if (isa(pathname,'ConDir') && exist(pathname)) % Loading file
                 if(p.Results.copy == 0) % overwrite case
-                    headerIn = SDCpckg.io.NativeBin.serial.HeaderRead(path(pathname));
+                    headerIn = SDCpckg.Reg.io.NativeBin.serial.HeaderRead(path(pathname));
                     td       = pathname;
                 else % no overwrite
                     td       = ConDir();
-                    SDCpckg.io.NativeBin.serial.FileCopy(path(pathname),path(td));
-                    headerIn = SDCpckg.io.NativeBin.serial.HeaderRead(path(td));
+                    SDCpckg.Reg.io.NativeBin.serial.FileCopy(path(pathname),path(td));
+                    headerIn = SDCpckg.Reg.io.NativeBin.serial.HeaderRead(path(td));
                 end            
             else
                 error('Fail: Path does not exist');
@@ -61,8 +61,8 @@ methods
             xprecisi = class(data);
             td       = ConDir();
             pathname = td;
-            headerIn = SDCpckg.basicHeaderStruct(xsize,xprecisi,0);
-            SDCpckg.io.NativeBin.serial.FileWrite(path(td),data,headerIn);
+            headerIn = SDCpckg.Reg.basicHeaderStruct(xsize,xprecisi,0);
+            SDCpckg.Reg.io.NativeBin.serial.FileWrite(path(td),data,headerIn);
             
         else
             error('Unsupported data type %s', class(varargin{1}));
@@ -74,7 +74,7 @@ methods
         x.readOnly = p.Results.readonly;
 
         % Writing header on disk
-        SDCpckg.io.NativeBin.serial.HeaderWrite(path(pathname),x.header);
+        SDCpckg.Reg.io.NativeBin.serial.HeaderWrite(path(pathname),x.header);
         
     end % constructor
 end % public methods

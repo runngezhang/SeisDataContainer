@@ -16,7 +16,7 @@ function  SeisDataContainer_clean(varargin)
         verbose = 1;
     end
 
-    if matlabpool('size') > 0
+    if parpool_size() > 0
         spmd
             pause(rand());
             if isdir(SDClocalTmpDir)

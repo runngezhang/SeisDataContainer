@@ -60,8 +60,8 @@ function out = datacontests(varargin)
 %   Steven L. Eddins
 %   Copyright 2009 The MathWorks, Inc.
 
-% Make sure matlabpool is open
-if matlabpool('size') == 0
+% Make sure parallel pool is open
+if parpool_size() == 0
     error('Matlab pool is not on!');
 end
 if isempty(whos('global','SDCglobalTmpDir'))
@@ -93,7 +93,7 @@ else
     end
 end
 
-did_pass = suite.run(SDCpckg.utils.DataContainerTestRunDisplay());
+did_pass = suite.run(SDCpckg.Reg.utils.DataContainerTestRunDisplay());
 
 if nargout > 0
     out = did_pass;

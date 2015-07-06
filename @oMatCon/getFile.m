@@ -27,7 +27,7 @@ else
     end
 
     % this gives us Matlab array
-    y = SDCpckg.io.NativeBin.serial.FileReadLeftChunk...
+    y = SDCpckg.Reg.io.NativeBin.serial.FileReadLeftChunk...
         (path(obj.pathname),[chunk(1) chunk(end)],slice);
 
     % returning the result as iCon

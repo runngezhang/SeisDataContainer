@@ -16,6 +16,6 @@ x = ip.Results.obj;
 p = ip.Results.norm;
 
 % Get norm
-x = SDCpckg.io.NativeBin.serial.FileNorm...
+x = SDCpckg.Reg.io.NativeBin.serial.FileNorm...
     (path(x.pathname),p);
 end
