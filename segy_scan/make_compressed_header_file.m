@@ -28,7 +28,7 @@ end
 function header_file_init(seismic, block_size, ...
                           header_byte_locations)
 %% --------------------Function Definition---------------------------
-% Makes a matlite file that summarizes the byte locations for each trace.
+% Makes a mat_lite file containing compressed trace headers 
 %%
     bytes_per_sample = seismic.bytes_per_sample;
   

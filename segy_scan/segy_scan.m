@@ -58,16 +58,18 @@ function segy_scan(filepath, file_filter, header_byte_locations, ...
         
         seismic = read_header_file(header_file);
     
-        % extract block headers mat_lite file
-        block_headers = make_block_headers(header_file, block_size);
-        metadata.block_headers = [metadata.block_headers; block_headers];
+        % make headers for the blocks in each mat_lite file
+        block_headers = make_block_headers(header_file, ...
+                                           block_size);
         
-        % last two entries are min/max trace indices
+        % update the volume metadata
+        metadata.block_headers = [metadata.block_headers; block_headers];
         metadata.ntraces = metadata.ntraces + seismic.n_traces;
         
     end
     
     metadata.n_blocks = size(metadata.block_headers,1);
+    
     
     %% Save the metafile
     save(metafile, '-struct', 'metadata', '-v7.3');
