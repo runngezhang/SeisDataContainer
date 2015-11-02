@@ -10,12 +10,21 @@ classdef segyCon < iroCon
     %
     
     
-    
     methods
         
-        function obj = segyCon(metadata_path)
+        function obj = segyCon(metadata_path, type) 
             
-            header = irSDCpckg.shotHeaderFromMetadata(metadata_path);
+            switch type
+               
+                case 'shot'
+                    header = irSDCpckg.shotHeaderFromMetadata(metadata_path);
+                
+                case 'stack'
+                    header = irSDCpckg.stackHeaderFromMetadata(metadata_path);
+                    
+                otherwise
+                    return
+            end
             dims = [size(header.scale,2) size(header.metadata,1)];
             
             obj = obj@iroCon(header, dims);
@@ -23,6 +32,36 @@ classdef segyCon < iroCon
             
         end
         
+        function container = blocks(obj, blocks)
+            
+
+            first = 1;
+            for block=blocks
+                
+                [segy_header, traces, trace_headers] =   ...
+                   read_block(obj.header.metadata(block, :));
+               
+               if first
+                all_traces = traces;
+                all_trace_headers = trace_headers;
+                first = 0;
+               else
+                   all_traces = [all_traces, traces];
+                   all_trace_headers = [all_trace_headers; trace_headers];
+               end
+               
+            end
+            
+            header = irSDCpckg.headerFromBlockRead(segy_header,...
+                                                   all_trace_headers);
+            
+            container = iriCon(header, size(all_traces));
+            container.data = all_traces;
+            
+        end
+                
+            
+            
         function container = query(obj, volume, key, value)
             
             if key == 'block'
@@ -41,6 +80,7 @@ classdef segyCon < iroCon
                 
             end
         end % function
+            
     end % methods
     
 end
