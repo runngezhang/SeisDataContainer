@@ -75,7 +75,7 @@ classdef irSeisDataContainer
             
             x.header.metadata = p.Results.metadata;
             x.header.units = p.Results.units;
-            x.header.label = p.Results.labels;
+            x.header.labels = p.Results.labels;
             
         end % Constructor
                 

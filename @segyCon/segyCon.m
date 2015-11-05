@@ -23,12 +23,13 @@ classdef segyCon < iroCon
                     header = irSDCpckg.stackHeaderFromMetadata(metadata_path);
                     
                 otherwise
-                    return
+                    header = {};
             end
             dims = [size(header.scale,2) size(header.metadata,1)];
             
             obj = obj@iroCon(header, dims);
             obj.pathname = metadata_path;
+            obj.type = type;
             
         end
         
@@ -53,7 +54,8 @@ classdef segyCon < iroCon
             end
             
             header = irSDCpckg.headerFromBlockRead(segy_header,...
-                                                   all_trace_headers);
+                                                   all_trace_headers,...
+                                                   obj.type);
             
             container = iriCon(header, size(all_traces));
             container.data = all_traces;
