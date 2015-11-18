@@ -15,7 +15,7 @@ if strcmp(type, 'stack')
     header.units = {'integer', 'integer'};
     header.labels = {'il', 'xl'};
 else
-    header.units = {'lon', 'lon', 'lat', 'lat'};
+    header.units = {'lat', 'lon', 'lat', 'lon'};
     header.labels = {'srcx', 'srcy', 'recx', 'recy'};
 end
 
