@@ -7,7 +7,7 @@
 % This script only needs to be run once on a Segy Volume
 
 
-filepath = {'../data/'}; % Path tothe segy files
+filepath = {'../data/'}; % Path to the segy files
 filename_string = '00_05';  % Filter segy files based on this
                             % filter string
 
