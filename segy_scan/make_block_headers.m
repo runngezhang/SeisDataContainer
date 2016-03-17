@@ -3,7 +3,7 @@ function block_headers = make_block_headers(header_file, block_size)
 % Breaks the trace header information into blocks and returns
 % header values to fully describe each block
 %
-%   Arguments:
+%   Arguvments:
 %     header_file (str): Path the mat_lite file with the compressed
 %           trace headers.
 %     block_size (int): The number of traces per block
@@ -16,8 +16,7 @@ function block_headers = make_block_headers(header_file, block_size)
     
     seismic = read_header_file(header_file);
     
-    n_blocks = floor(seismic.n_traces / block_size);
-    
+    n_blocks = floor(seismic.n_traces / block_size)
     for block=1:n_blocks
         
         start_ind = (block-1)*block_size +1;
@@ -34,7 +33,8 @@ function block_headers = make_block_headers(header_file, block_size)
     % Left overs
     block_size = seismic.n_traces - (n_blocks * block_size);
     if block_size > 0
-        start_ind = end_ind;
+        start_ind = floor(n_blocks * block_size) + 1
+        
         headers = seismic.compressed_headers(start_ind:end, :);
         
         block_header = populate_block_header(header_file, seismic, ...
