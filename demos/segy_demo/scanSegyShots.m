@@ -15,7 +15,7 @@ output_dir = '../data/'; % Directory to output trace summary files
 block_size = 100000; % Number of traces in each block
 
 header_bytes = [73,77,81,85]; % Byte location for the metadata
-                              % [rec_x, rec_y, src_x, src_y]
+                              % [src_x, src_y, rec_x, rec_y]
 
 metafile = 'shot_meta.mat' % metadata summary file
  
