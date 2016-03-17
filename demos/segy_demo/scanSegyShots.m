@@ -26,15 +26,5 @@ segy_scan(filepath,filename_string, header_bytes, ...
 
 
 
-container = segyCon(metafile, 'shot');
-segyHead = container.header
-d = container.blocks(10);
-header = d.header
-
-%F = opDFT(size(d,1));
-
-%f = F*d;
-
-
 
 
