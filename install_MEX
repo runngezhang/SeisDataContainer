@@ -1,0 +1,4 @@
+#!/bin/bash
+cd +SDCpckg/+Reg/+io/ || exit 1
+mex allocFile.c
+ls -l *.*mex*
