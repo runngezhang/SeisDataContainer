@@ -8,7 +8,7 @@ function FileDelete(dirname)
 %   Warning: The specified directory must exist.
 
 SDCpckg.Reg.io.isFileClean(dirname);
-error(nargchk(1, 1, nargin, 'struct'));
+narginchk(1, 1);
 assert(ischar(dirname), 'directory name must be a string')
 
 % Read header

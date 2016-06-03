@@ -14,7 +14,7 @@ function DataWriteLeftChunk(dirname,filename,x,dimensions,range,slice,file_preci
 %                    Supported precisions: 'double', 'single'
 %
 %   Warning: The specified file must exist.
-error(nargchk(7, 7, nargin, 'struct'));
+narginchk(7, 7);
 assert(ischar(dirname), 'directory name must be a string')
 assert(ischar(filename), 'file name must be a string')
 assert(isreal(x), 'data must be real')

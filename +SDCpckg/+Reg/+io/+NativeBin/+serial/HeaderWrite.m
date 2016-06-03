@@ -7,7 +7,7 @@ function HeaderWrite(dirname,header)
 %   DIRNAME - A string specifying the directory name
 %   HEADER  - A header struct specifying the distribution
 %
-error(nargchk(2, 2, nargin, 'struct'));
+narginchk(2, 2);
 assert(ischar(dirname), 'directory name must be a string')
 assert(isdir(dirname),'Fatal error: directory %s does not exist',dirname);
 assert(isstruct(header),'header has to be a struct')

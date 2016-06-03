@@ -14,7 +14,7 @@ function DataWrite(distribute,dirname,filename,x,localsize,localindx,file_precis
 %                    Supported precisions: 'double', 'single'
 %
 %   Warning: The specified file must exist.
-error(nargchk(7, 7, nargin, 'struct'));
+narginchk(7, 7);
 assert(isscalar(distribute),'distribute flag must be a scalar')
 assert(ischar(dirname), 'directory names must be a string')
 assert(ischar(filename), 'file name must be a string')

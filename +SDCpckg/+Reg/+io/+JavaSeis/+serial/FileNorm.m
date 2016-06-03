@@ -8,7 +8,7 @@ function x = FileNorm(dirname,norm,file_precision)
 %                    'fro', p-norm where p is scalar.
 
 SDCpckg.Reg.io.isFileClean(dirname);
-%error(nargchk(2, 2, nargin, 'struct'));
+%narginchk(2, 2);
 %assert(ischar(dirname), 'input directory name must be a string')
 %assert(isdir(dirname),'Fatal error: input directory %s does not exist'...
 %   ,dirname)

@@ -5,7 +5,7 @@ function FileDelete(dirname)
 %
 %   DIRNAME - A string specifying the directory name
 %
-error(nargchk(1, 1, nargin, 'struct'));
+narginchk(1, 1);
 assert(parpool_size()>0,'parallel pool must be open')
 assert(ischar(dirname), 'directory name must be a string')
 

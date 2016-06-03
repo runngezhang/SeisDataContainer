@@ -10,7 +10,7 @@ function x = DataRead(dirname,filename,dimensions,file_precision,x_precision)
 %   *_PRECISION - An string specifying the precision of one unit of data,
 %                 Supported precisions: 'double', 'single'
 %
-error(nargchk(5, 5, nargin, 'struct'));
+narginchk(5, 5);
 assert(ischar(dirname), 'directory name must be a string')
 assert(ischar(filename), 'file name must be a string')
 assert(isvector(dimensions), 'dimensions must be given as a vector')

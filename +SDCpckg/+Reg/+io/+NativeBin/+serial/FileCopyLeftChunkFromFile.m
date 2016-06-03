@@ -12,7 +12,7 @@ function FileCopyLeftChunkFromFile(dirin,dirout,range,slice)
 %   SLICE  - A vector specifying the slice index
 %
 
-error(nargchk(4, 4, nargin, 'struct'));
+narginchk(4, 4);
 assert(ischar(dirin), 'input directory name must be a string')
 assert(ischar(dirout), 'ouput directory name must be a string')
 assert(isdir(dirin),'Fatal error: input directory %s does not exist',dirin);

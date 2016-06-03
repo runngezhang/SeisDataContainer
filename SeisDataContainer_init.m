@@ -23,7 +23,7 @@ function  SeisDataContainer_init(varargin)
 %       If TMPDIR environment is not set,
 %           it will use '/tmp/SDC.tmp' directory instead.
 %
-    error(nargchk(0, 8, nargin, 'struct'));
+    narginchk(0, 8);
     global SDCglobalTmpDir;
     global SDClocalTmpDir;
     global SDCbufferSize;

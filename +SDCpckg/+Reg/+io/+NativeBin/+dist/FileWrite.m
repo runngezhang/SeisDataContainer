@@ -19,7 +19,7 @@ function FileWrite(dirname,x,distribute,varargin)
 %   Warning: If the specified dirname already exist,
 %            it will be overwritten.
 %
-error(nargchk(3, 5, nargin, 'struct'));
+narginchk(3, 5);
 assert(parpool_size()>0,'parallel pool must be open')
 assert(ischar(dirname), 'directory name must be a string')
 assert(isdistributed(x), 'data must be distributed')

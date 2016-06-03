@@ -6,7 +6,7 @@ function FileDelete(dirname)
 %   DIRNAME - A string specifying the directory name
 %
 %   Warning: The specified directory must exist.
-error(nargchk(1, 1, nargin, 'struct'));
+narginchk(1, 1);
 assert(ischar(dirname), 'directory name must be a string')
 
 % Make Directory

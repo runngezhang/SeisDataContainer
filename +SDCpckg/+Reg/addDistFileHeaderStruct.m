@@ -1,5 +1,5 @@
 function header = addDistFileHeaderStruct(headerin,dirsout)
-    error(nargchk(2, 2, nargin, 'struct'));
+    narginchk(2, 2);
     assert(isstruct(headerin),'headerin has to be a header struct');
     assert(iscell(dirsout), 'distributed output directories names must form cell')
 

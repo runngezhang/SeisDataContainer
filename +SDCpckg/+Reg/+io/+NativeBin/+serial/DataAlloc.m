@@ -11,7 +11,7 @@ function DataAlloc(dirname,filename,dimensions,file_precision)
 %                    Supported precisions: 'double', 'single'
 %
 %   Warning: If the specified file already exists, it will be overwritten.
-error(nargchk(4, 4, nargin, 'struct'));
+narginchk(4, 4);
 assert(ischar(dirname), 'dirname must be a string')
 assert(isdir(dirname),'dirname %s does not exist',dirname)
 assert(ischar(filename), 'file name must be a string')

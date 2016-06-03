@@ -16,7 +16,7 @@ function x = DataReadLeftSlice(distributed,dirname,filename,dimensions,localsize
 %   *_PRECISION  - An string specifying the precision of one unit of data,
 %                 Supported precisions: 'double', 'single'
 %
-error(nargchk(11, 11, nargin, 'struct'));
+narginchk(11, 11);
 assert(isscalar(distributed),'distributed flag must be a scalar')
 assert(ischar(dirname), 'directory name must be a string')
 assert(ischar(filename), 'file name must be a string')

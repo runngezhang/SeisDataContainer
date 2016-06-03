@@ -13,7 +13,7 @@ function DataWriteLeftSlice(dirname,filename,x,dimensions,slice,file_precision)
 %                    Supported precisions: 'double', 'single'
 %
 %   Warning: The specified file must exist.
-error(nargchk(6, 6, nargin, 'struct'));
+narginchk(6, 6);
 assert(ischar(dirname), 'directory name must be a string')
 assert(ischar(filename), 'file name must be a string')
 assert(isreal(x), 'data must be real')

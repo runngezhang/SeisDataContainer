@@ -13,7 +13,7 @@ function [x header] = FileReadLeftChunk(dirname,range,slice,varargin)
 %
 
 SDCpckg.Reg.io.isFileClean(dirname);
-error(nargchk(3, 4, nargin, 'struct'));
+narginchk(3, 4);
 assert(ischar(dirname), 'directory name must be a string')
 assert(isdir(dirname),'Fatal error: directory %s does not exist',dirname);
 assert(isvector(range)&length(range)==2, 'range index must be a vector with 2 elements')

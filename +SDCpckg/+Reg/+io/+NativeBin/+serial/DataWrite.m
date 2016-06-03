@@ -11,7 +11,7 @@ function DataWrite(dirname,filename,x,file_precision)
 %               Supported precisions: 'double', 'single'
 %
 %   Warning: The specified file must exist.
-error(nargchk(4, 4, nargin, 'struct'));
+narginchk(4, 4);
 assert(ischar(dirname), 'directory name must be a string')
 assert(ischar(filename), 'file name must be a string')
 assert(isreal(x), 'data must be real')

@@ -11,7 +11,7 @@ function [x header] = FileRead(dirname,varargin)
 %
 
 SDCpckg.Reg.io.isFileClean(dirname);
-error(nargchk(1, 2, nargin, 'struct'));
+narginchk(1, 2);
 assert(ischar(dirname), 'directory name must be a string')
 assert(isdir(dirname),'Fatal error: directory %s does not exist',dirname);
 assert(SDCpckg.Reg.io.isFileClean(dirname));

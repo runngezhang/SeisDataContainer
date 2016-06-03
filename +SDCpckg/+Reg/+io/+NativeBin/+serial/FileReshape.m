@@ -11,7 +11,7 @@ function FileReshape(dirnameIn,dirnameOut,shape)
 
 SDCpckg.Reg.io.isFileClean(dirnameIn);
 SDCpckg.Reg.io.isFileClean(dirnameOut);
-error(nargchk(3, 3, nargin, 'struct'));
+narginchk(3, 3);
 assert(ischar(dirnameIn), 'input directory name must be a string')
 assert(isdir(dirnameIn),'Fatal error: input directory %s does not exist',dirnameIn);
 assert(isdir(dirnameOut), 'output directory name must be a string')

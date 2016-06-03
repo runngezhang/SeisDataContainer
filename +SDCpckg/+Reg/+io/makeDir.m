@@ -11,7 +11,7 @@ function [tmpdir, toptmpdir] = makeDir(varargin)
 %   - TMPDIR: temporary directory on master process
 %   - TOPTMPDIR: detected parent directory of TMPDIR
 %
-    error(nargchk(0, 1, nargin, 'struct'));
+    narginchk(0, 1);
     global SDCglobalTmpDir;
 
     if nargin > 0

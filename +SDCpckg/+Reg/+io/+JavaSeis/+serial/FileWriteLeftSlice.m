@@ -11,7 +11,7 @@ function FileWriteLeftSlice(dirname,X,slice)
 %   SLICE    - A vector specifying the slice index
 %
 %   Warning: If the specified dirname exists, it will be removed
-error(nargchk(3, 3, nargin, 'struct'));
+narginchk(3, 3);
 assert(ischar(dirname), 'directory name must be a string')
 assert(isfloat(X), 'data must be float')
 % assert(~isdistributed(x), 'data must not be distributed')

@@ -10,7 +10,7 @@ function [x header] = FileReadLeftSlice(dirname,slice,varargin)
 %                 defaults to 'double' (8 bits)
 %                 Supported precisions: 'double', 'single'
 %
-error(nargchk(2, 3, nargin, 'struct'));
+narginchk(2, 3);
 assert(parpool_size()>0,'parallel pool must be open')
 assert(ischar(dirname), 'directory name must be a string')
 assert(isdir(dirname),'Fatal error: directory %s does not exist',dirname);

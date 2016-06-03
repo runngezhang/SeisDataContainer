@@ -14,7 +14,7 @@ function x = DataBufferedCopy(dirin,dirout,filename,posin,posout,ecount,precisio
 %   PRECISION - A string specifying the precision of one unit of data,
 %               Supported precisions: 'double', 'single'
 %
-error(nargchk(7, 7, nargin, 'struct'));
+narginchk(7, 7);
 assert(ischar(dirin), 'DIRIN name must be a string')
 assert(ischar(dirout), 'DIROUT name must be a string')
 assert(ischar(filename), 'FILENAME must be a string')

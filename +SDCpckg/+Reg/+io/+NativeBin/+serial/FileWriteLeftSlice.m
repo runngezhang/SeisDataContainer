@@ -12,7 +12,7 @@ function FileWriteLeftSlice(dirname,x,slice)
 
 SDCpckg.Reg.io.isFileClean(dirname);
 SDCpckg.Reg.io.setFileDirty(dirname);
-error(nargchk(3, 3, nargin, 'struct'));
+narginchk(3, 3);
 assert(ischar(dirname), 'directory name must be a string')
 assert(isfloat(x), 'data must be float')
 assert(~isdistributed(x), 'data must not be distributed')

@@ -11,7 +11,7 @@ function x = DataReadLeftSlice(dirname,filename,dimensions,slice,file_precision,
 %   *_PRECISION - An string specifying the precision of one unit of data,
 %                 Supported precisions: 'double', 'single'
 %
-error(nargchk(6, 6, nargin, 'struct'));
+narginchk(6, 6);
 assert(ischar(dirname), 'directory name must be a string')
 assert(ischar(filename), 'file name must be a string')
 assert(isvector(dimensions), 'dimensions must be a vector')

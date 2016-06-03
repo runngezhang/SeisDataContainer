@@ -13,7 +13,7 @@ function FileWriteLeftChunk(dirname,X,range,slice)
 %   SLICE   - A vector specifying the slice
 %
 %   Warning: If the specified dirname exists, it will be removed.
-error(nargchk(4, 4, nargin, 'struct'));
+narginchk(4, 4);
 assert(ischar(dirname), 'directory name must be a string')
 %assert(~isdistributed(x), 'data must not be distributed')
 % No distribution yet. This function is not defined.

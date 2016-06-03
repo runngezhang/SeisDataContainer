@@ -8,7 +8,7 @@ function FileAlloc(dirname,header)
 %   HEADER  - A header struct specifying the file properties
 %
 
-error(nargchk(2, 2, nargin, 'struct'));
+narginchk(2, 2);
 %assert(parpool_size()>0,'parallel pool must be open')
 assert(ischar(dirname), 'directory name must be a string')
 assert(isstruct(header), 'header must be a header struct')

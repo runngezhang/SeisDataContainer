@@ -12,7 +12,7 @@ function [x header] = FileReadLeftSlice(dirname,slice,varargin)
 %
 
 SDCpckg.Reg.io.isFileClean(dirname);
-error(nargchk(2, 3, nargin, 'struct'));
+narginchk(2, 3);
 assert(ischar(dirname), 'directory name must be a string')
 assert(isdir(dirname),'Fatal error: directory %s does not exist',dirname);
 assert(isvector(slice)|isequal(slice,[]), 'slice index must be a vector')

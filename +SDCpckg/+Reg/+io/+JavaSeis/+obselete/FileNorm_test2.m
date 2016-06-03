@@ -17,7 +17,7 @@ function [x,y,zz] = FileNorm_test2(dirname,K,J,norm)
  javaaddpath('/Users/bcollignon/Documents/workspace/javaSeisExample_test2.jar');
 
 SDCpckg.Reg.io.isFileClean(dirname);
-%error(nargchk(2, 2, nargin, 'struct'));
+narginchk(2, 2);
 assert(ischar(dirname), 'input directory name must be a string')
 assert(isdir(dirname),'Fatal error: input directory %s does not exist'...
     ,dirname)

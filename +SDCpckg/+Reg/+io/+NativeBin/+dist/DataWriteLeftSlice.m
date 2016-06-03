@@ -15,7 +15,7 @@ function DataWriteLeftSlice(distribute,dirname,filename,x,dimensions,localsize,l
 %   *_PRECISION  - An string specifying the precision of one unit of data,
 %                  Supported precisions: 'double', 'single'
 %
-error(nargchk(10, 10, nargin, 'struct'));
+narginchk(10, 10);
 assert(isscalar(distribute),'distributed flag must be a scalar')
 assert(ischar(dirname), 'directory name must be a string')
 assert(ischar(filename), 'file name must be a string')

@@ -16,7 +16,7 @@ function FileTranspose(dirnameIn,dirnameOut,varargin)
 %   Warning: For now this function only works for distributed data that 
 %   has matlab default distribution
 %
-error(nargchk(2, 5, nargin, 'struct'));
+narginchk(2, 5);
 assert(parpool_size()>0,'parallel pool must be open')
 assert(ischar(dirnameIn), 'input directory name must be a string')
 assert(isdir(dirnameIn),'Fatal error: input directory %s does not exist',dirnameIn);
@@ -26,14 +26,14 @@ assert(isdir(dirnameOut), 'output directory name must be a string')
 % Read header
 hdrin = SDCpckg.Reg.io.NativeBin.serial.HeaderRead(dirnameIn);
 if ~hdrin.distributedIO % serial redirect to serial transpose
-    error(nargchk(3, 3, nargin, 'struct'));
+    narginchk(3, 3);
     assert(isscalar(varargin{1}),'seperation dimension must be a scalar')
     sepdim = varargin{1};
     SDCpckg.Reg.io.NativeBin.serial.FileTranspose(dirnameIn,dirnameOut,sepdim);
 else % here starts the distributed transpose
 
     % Process arguments
-    error(nargchk(3, 4, nargin, 'struct'));
+    narginchk(3, 4);
     assert(iscell(varargin{1}), 'distributed output directories names must form cell')
     distdirs = varargin{1};
     sizeIn = hdrin.size;

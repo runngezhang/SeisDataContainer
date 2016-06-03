@@ -19,7 +19,7 @@ function x = DataReadStriped(dirname,filename,dimensions,offset,count,skip,file_
 %   *_PRECISION - An string specifying the precision of one unit of data,
 %                 Supported precisions: 'double', 'single'
 %
-error(nargchk(8, 8, nargin, 'struct'));
+narginchk(8, 8);
 assert(ischar(dirname), 'directory name must be a string')
 assert(ischar(filename), 'file name must be a string')
 assert(isvector(dimensions), 'dimensions must be given as a vector')

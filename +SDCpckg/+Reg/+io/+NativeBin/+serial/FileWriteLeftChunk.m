@@ -14,7 +14,7 @@ function FileWriteLeftChunk(dirname,x,range,slice)
 
 SDCpckg.Reg.io.isFileClean(dirname);
 SDCpckg.Reg.io.setFileDirty(dirname);
-error(nargchk(4, 4, nargin, 'struct'));
+narginchk(4, 4);
 assert(ischar(dirname), 'directory name must be a string')
 assert(isfloat(x), 'data must be float')
 assert(~isdistributed(x), 'data must not be distributed')

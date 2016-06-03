@@ -3,7 +3,7 @@ function setFileDirty(dirname,varargin)
     assert(isdir(dirname),'dirname %s is not a directory or does not exist',dirname)
     lockname = '_IOinProgress';
 
-    error(nargchk(1, 2, nargin, 'struct'));
+    narginchk(1, 2);
     if nargin > 1
         assert(ischar(varargin{1}),'file name is not a string');
         lockname = varargin{1};

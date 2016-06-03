@@ -6,7 +6,7 @@ function header = HeaderRead(dirname)
 %
 %   DIRNAME - A string specifying the directory name
 %
-error(nargchk(1, 1, nargin, 'struct'));
+narginchk(1, 1);
 assert(ischar(dirname), 'directory name must be a string')
 assert(isdir(dirname),'Fatal error: directory %s does not exist',dirname);
 

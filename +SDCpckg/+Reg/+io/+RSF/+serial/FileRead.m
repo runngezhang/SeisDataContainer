@@ -11,7 +11,7 @@ function [x header] = FileRead(filename)
 %   Note! needs MADAGASCAR SVN rev. 8140 or newer
 %
  
-    error(nargchk(1, 1, nargin, 'struct'));
+    narginchk(1, 1);
     assert(SDCpckg.Reg.io.isFile(filename),...
         'Fatal error: file %s does not exist',filename)
 

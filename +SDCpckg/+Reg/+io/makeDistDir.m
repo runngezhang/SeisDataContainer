@@ -11,7 +11,7 @@ function [tmpdirs, toptmpdir] = makeDistDir(varargin)
 %   In either case makeDistDir returns:
 %   - TMPDIRS: composite of temporary directories for workers
 %
-    error(nargchk(0, 1, nargin, 'struct'));
+    narginchk(0, 1);
     assert(parpool_size()>0,'parallel pool has to be open');
     global SDClocalTmpDir;
 

@@ -9,7 +9,7 @@ function FileWriteLeftSlice(dirname,x,slice)
 %   SLICE   - A vector specifying the slice index
 %
 %   Warning: If the specified dirname exists, it will be removed
-error(nargchk(3, 3, nargin, 'struct'));
+narginchk(3, 3);
 assert(parpool_size()>0,'parallel pool must be open')
 assert(ischar(dirname), 'directory name must be a string')
 assert(isdistributed(x), 'data must be distributed')

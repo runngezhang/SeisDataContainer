@@ -2,7 +2,7 @@ function status = releaseIOlock(dirname,varargin)
     assert(ischar(dirname),'dirname must be a string')
     lockname = '_IOlock';
 
-    error(nargchk(1, 2, nargin, 'struct'));
+    narginchk(1, 2);
     if nargin > 1
         assert(ischar(varargin{1}),'lock name is not a string');
         lockname = varargin{1};

@@ -10,7 +10,7 @@ function [x, header] = FileRead(dirname,varargin)
 %                 defaults to 'double' (8 bytes)
 %                 Supported precisions: 'double', 'single'
 %
-error(nargchk(1, 2, nargin, 'struct'));
+narginchk(1, 2);
 assert(ischar(dirname), 'directory name must be a string')
 assert(isdir(dirname),'Fatal error: directory %s does not exist',dirname);
 

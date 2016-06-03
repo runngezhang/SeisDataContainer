@@ -17,7 +17,7 @@ function FileWrite(filename,rsfargs,x,varargin)
 %   Note! needs MADAGASCAR SVN rev. 8140 or newer
 %
 
-    error(nargchk(3, 4, nargin, 'struct'));
+    narginchk(3, 4);
     assert(ischar(filename), 'directory name must be a string')
     assert(isfloat(x), 'data must be float')
     assert(~isdistributed(x), 'data must not be distributed')

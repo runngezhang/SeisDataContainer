@@ -12,7 +12,7 @@ function x = DataReadLeftChunk(dirname,filename,dimensions,range,slice,file_prec
 %   *_PRECISION - An string specifying the precision of one unit of data,
 %                 Supported precisions: 'double', 'single'
 %
-error(nargchk(7, 7, nargin, 'struct'));
+narginchk(7, 7);
 assert(ischar(dirname), 'directory name must be a string')
 assert(ischar(filename), 'file name must be a string')
 assert(isvector(dimensions), 'dimensions must be a vector')

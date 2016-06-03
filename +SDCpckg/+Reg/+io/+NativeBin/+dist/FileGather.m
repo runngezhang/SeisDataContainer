@@ -7,7 +7,7 @@ function FileGather(dirin,dirout)
 %   DIRIN   - A string specifying the input file directory
 %   DIROUT  - A string specifying the output file directory
 %
-error(nargchk(2, 2, nargin, 'struct'));
+narginchk(2, 2);
 assert(ischar(dirin), 'input directory name must be a string')
 assert(ischar(dirout), 'output directory name must be a string')
 assert(isdir(dirin),'Fatal error: input directory %s does not exist',dirin);

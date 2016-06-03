@@ -12,7 +12,7 @@ function [y header] = FileReadLeftSlice(dirname,slice,varargin)
 %                 defaults to 'double' (8 bits)
 %                 Supported precisions: 'double', 'single'
 %
-error(nargchk(2, 3, nargin, 'struct'));
+narginchk(2, 3);
 assert(ischar(dirname), 'directory name must be a string')
 assert(isdir(dirname),'Fatal error: directory %s does not exist',dirname);
 assert(isvector(slice)|isequal(slice,[]), 'slice index must be a vector')

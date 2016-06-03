@@ -8,7 +8,7 @@ function FileDistribute(dirin,dirout,dirsout,distdim)
 %   DIROUT  - A string specifying the output file directory
 %   DISTDIM - A scalar specifying the distribution dimension
 %
-error(nargchk(4, 4, nargin, 'struct'));
+narginchk(4, 4);
 assert(ischar(dirin), 'input directory name must be a string')
 assert(ischar(dirout), 'output directory name must be a string')
 assert(iscell(dirsout), 'distributed output directories names must form cell')

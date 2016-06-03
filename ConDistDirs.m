@@ -19,9 +19,9 @@ classdef (Sealed=true) ConDistDirs < handle
 
     methods ( Access = public )
         function td = ConDistDirs(varargin)
-            error(nargchk(0, 3, nargin, 'struct'));
+            narginchk(0, 3);
             if nargin > 1
-                error(nargchk(3, 3, nargin, 'struct'));
+                narginchk(3, 3);
                 assert(strcmp(varargin{2},'keep'));
                 assert(islogical(varargin{3}));
                 assert(iscell(varargin{1}));

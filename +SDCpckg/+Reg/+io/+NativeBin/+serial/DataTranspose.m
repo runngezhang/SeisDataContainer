@@ -12,7 +12,7 @@ function DataTranspose(dirIn,dirOut,filename,dimensions,file_precision)
 %                    Supported precisions: 'double' or 'single'
 %
 %   Warning: If the specified output file already exists, it will be overwritten.
-error(nargchk(5, 5, nargin, 'struct'));
+narginchk(5, 5);
 assert(ischar(dirIn), 'input file name/directory should be string')
 assert(ischar(dirOut), 'output file name/directory should be string')
 assert(ischar(filename), 'output file name/directory should be string')

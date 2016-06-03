@@ -18,7 +18,7 @@ function FileWrite(dirname,x,varargin)
 %   Warning: If the specified dirname exists, it will be removed.
 
 SDCpckg.Reg.io.isFileClean(dirname);
-error(nargchk(2, 3, nargin, 'struct'));
+narginchk(2, 3);
 assert(ischar(dirname), 'directory name must be a string')
 assert(isfloat(x), 'data must be float')
 assert(~isdistributed(x), 'data must not be distributed')

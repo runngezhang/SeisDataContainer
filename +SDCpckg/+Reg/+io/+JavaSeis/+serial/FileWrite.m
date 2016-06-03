@@ -17,7 +17,7 @@ function FileWrite(dirname,x,varargin)
 %                    or DataContainer.basicHeaderStruct
 %
 %   Warning: If the specified dirname exists, it will be removed.
-error(nargchk(2, 3, nargin, 'struct'));
+narginchk(2, 3);
 assert(ischar(dirname), 'directory name must be a string')
 assert(isfloat(x), 'data must be float')
 %assert(~isdistributed(x), 'data must not be distributed')
