@@ -63,7 +63,7 @@ function [trace_headers] = read_trace_headers(seismic, start_byte,...
     fid = fopen(char(seismic.filepath),'r','b');
     fseek(fid,start_byte,'bof');
 
-    if seismic.file_type == 1
+    if seismic.file_type == 1 | seismic.file_type == 5;
         % Convert traces from IBM32FP read as UINT32 into IEEE64FP
         % (doubles) - need to make it singles
 
@@ -141,44 +141,6 @@ function [trace_headers] = read_trace_headers(seismic, start_byte,...
                     
         end % For Loop (traces_to_read)
 
-%        trace_headers=trace_headers_in'; %Pass out condensed header info
-        
-             
-    elseif seismic.file_type == 2 
-        disp('This seismic file type is not currently supported.');
-    elseif seismic.file_type == 5
-       
-        % Traces are IEEE32FP (singles)
-        
-	% Allocate memory to empty arrays
-	trace_headers_in = zeros(5, n_traces_to_read,'int32');
-	trchead_tmp=zeros(5,1);
-	
-	for trace = 1:n_traces_to_read;
-        
-        		
-        		% Set up/clear a temp vector and read the first 4 bytes of ... 
-        		% the header (Trace Number in File)
-        		trchead_tmp(:) = 0;
-        		trchead_tmp(1) = fread(fid, 1,'*int32');
-        		
-        		%Seek to srcX, 72nd byte in header. COF = 4th byte
-        		fseek(fid,68, 'cof');
-        		
-        		% Read 4 samples (16 bytes) to get srcX, srcY, grpX, grpY
-        		trchead_tmp(2:5)= fread(fid,4,'*int32');      
-
-                	% Seek past remaining samples to next start of next trace
-                	fseek(fid,(seismic.n_samples)*4+152, 'cof');               	
-                
-               	 	% Store temporary traces and header
-               	 	trace_headers_in(:,trace)= trchead_tmp;
-                    
-        end % For Loop (traces_to_read)
-
-        trace_headers=trace_headers_in'; %Pass out condensed header info
-        
-                
     else
         disp('This seismic file type is not currently supported.');
     end
