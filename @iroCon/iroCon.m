@@ -11,6 +11,7 @@ classdef iroCon < irSeisDataContainer
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     properties
         pathname = '';
+        samples_range=[];
     end
     
     methods
