@@ -4,15 +4,15 @@ classdef segyCon < iroCon
     %   files. Current implementation only reads data and does not
     %   overwrite the underlying SEG-Y data.
     %
-    %   x = segyCon(metadata_path) returns a segy seismic data
-    %   container that accesses the data referenced by a given metadata
+    %   x = segyCon(metadata_path, type, samples_range, header_bytes) returns a segy
+    %   seismic data container that accesses the data referenced by a given metadata
     %   file.
-    %
+    %	
     
     
     methods
         
-        function obj = segyCon(metadata_path, type, samples_range) 
+        function obj = segyCon(metadata_path, type, samples_range, header_bytes) 
             
             switch type
                
@@ -30,11 +30,19 @@ classdef segyCon < iroCon
             obj = obj@iroCon(header, dims);
             obj.pathname = metadata_path;
             obj.type = type;
+            
             if isempty(samples_range);
             	obj.samples_range=[];
             else
             	obj.samples_range=samples_range;
             end
+            
+            if isempty(header_bytes);
+            	obj.header_bytes=[];
+            else
+            	obj.header_bytes=header_bytes;
+            end
+            
             
         end
         
@@ -74,7 +82,7 @@ classdef segyCon < iroCon
             for block=blocks
                 
                 [segy_header, trace_headers] =   ...
-                   read_headers(obj.header.metadata(block, :));
+                   read_headers(obj.header.metadata(block, :), obj.header_bytes);
                
                if first
                 all_trace_headers = trace_headers;
