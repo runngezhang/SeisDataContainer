@@ -12,7 +12,7 @@ classdef segyCon < iroCon
     
     methods
         
-        function obj = segyCon(metadata_path, type) 
+        function obj = segyCon(metadata_path, type, samples_range) 
             
             switch type
                
@@ -30,6 +30,11 @@ classdef segyCon < iroCon
             obj = obj@iroCon(header, dims);
             obj.pathname = metadata_path;
             obj.type = type;
+            if isempty(samples_range);
+            	obj.samples_range=[];
+            else
+            	obj.samples_range=samples_range;
+            end
             
         end
         
@@ -40,7 +45,7 @@ classdef segyCon < iroCon
             for block=blocks
                 
                 [segy_header, traces, trace_headers] =   ...
-                   read_block(obj.header.metadata(block, :));
+                   read_block(obj.header.metadata(block, :), obj.samples_range);
                
                if first
                 all_traces = traces;
@@ -62,7 +67,32 @@ classdef segyCon < iroCon
             
         end
                 
+        function container = headers(obj, blocks) 
+         %% only for type 1 data           
+
+            first = 1;
+            for block=blocks
+                
+                [segy_header, trace_headers] =   ...
+                   read_headers(obj.header.metadata(block, :));
+               
+               if first
+                all_trace_headers = trace_headers;
+                first = 0;
+               else
+                   all_trace_headers = [all_trace_headers; trace_headers];
+               end
+               
+            end
             
+            header = irSDCpckg.headerFromBlockRead(segy_header,...
+                                                   all_trace_headers,...
+                                                   obj.type);
+            
+            container = iriCon(header, size(all_trace_headers));
+            container.data =[];	
+        
+        end %Function   
             
         function container = query(obj, volume, key, value)
             
