@@ -4,10 +4,34 @@ classdef segyCon < iroCon
     %   files. Current implementation only reads data and does not
     %   overwrite the underlying SEG-Y data.
     %
-    %   x = segyCon(metadata_path, type, samples_range, header_bytes) returns a segy
-    %   seismic data container that accesses the data referenced by a given metadata
-    %   file.
+    %   container = segyCon(metadata_path, type, samples_range, header_bytes) returns
+    %   a segy seismic data container that accesses the data referenced by a given 
+    %   metadata file.
+    %--------------------------------------------------------------------------------------
+    %	Inputs: metadata_path: A string path to the metadata file.
+    %			Ex: 'BPshotsMeta.mat'
+    %		
+    %		type: Type of ensemble. Use either 'shot' for data, or 'stack' for models.
+    %		      Changes what kind of labels are used for the volume.
     %	
+    %		samples_range: Range of samples you want to be read from each trace.
+    %			       Inputting an empty vector ( [] ) will read all samples.
+    %			       Ex: SampleRange = [50 500]
+    %
+    %		header_bytes: A vector containing the starting byte of trace attributes in
+    %			     the STHs that will store as metadata
+    %			     Ex: Header_Bytes=[1   81   85]; 
+    %		             This will store the Trace Number, Group X and Group Y
+    %			     positions.
+    %
+    %	Output: Container: A seismic data container that will access data according 
+    %                      to the given metadata file.
+    %------------------------------------------------------------------------------------- 
+    %	Container Methods
+    %		
+
+
+
     
     
     methods
