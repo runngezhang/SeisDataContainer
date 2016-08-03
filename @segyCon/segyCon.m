@@ -23,12 +23,12 @@ classdef segyCon < iroCon
     %			       
     %		   Ex: Con=segyCon('meta','shot','SampleRange',[50 500])
     %
-    %		Header_Bytes: An optional vector containing the starting byte of 
+    %		HeaderBytes: An optional vector containing the starting byte of 
     %			      trace attributes in the STHs that will store as metadata.
     %			      If no header bytes are inputted by the user, the header bytes 
     %			      chosen when scanning the file will be used.
     %
-    %		   Ex: Con=segyCon('meta,'shot','Header_Bytes',[1 81 85]; 
+    %		   Ex: Con=segyCon('meta,'shot','HeaderBytes',[1 81 85]; 
     %			     This will store the Trace Number, Group X and Group Y
     %			     positions.
     %
@@ -58,6 +58,22 @@ classdef segyCon < iroCon
         
         function obj = segyCon(metadata_path, type, varargin) 
             
+         %% Parse inputs for validity
+            
+            %Set min/max inputes
+            narginchk(2,6)
+            
+            %Parse and set requirements
+            p = inputParser;
+            p.FunctionName='segyCon';
+            
+            addRequired(p,'metadata_path',@ischar)
+            parse(p,metadata_path)
+            
+            %valfcn=@(x) ischar(x) && 
+           % addRequired(p,'type',)
+           % parse(p,type)
+            
             switch type
                
                 case 'shot'
@@ -76,8 +92,7 @@ classdef segyCon < iroCon
             obj.type = type;
 
 % ---------------------------------------------------         
-            %Parse inputs for validity
-            narginchk(2,6)
+
             
             
 		
@@ -96,7 +111,7 @@ classdef segyCon < iroCon
 					if strcmpi(varargin{i},'SampleRange');
 						obj.samples_range = varargin{i+1};
 						sr_written=1;
-					elseif strcmpi(varargin{i},'Header_Bytes');
+					elseif strcmpi(varargin{i},'HeaderBytes');
 						obj.header_bytes = varargin{i+1};
 						hb_written=1;
 					end
@@ -126,7 +141,7 @@ classdef segyCon < iroCon
             for block=blocks
                 
                 [segy_header, traces, trace_headers] =   ...
-                   read_block(obj.header.metadata(block, :), obj.samples_range);
+                   read_block(obj.header.metadata(block, :), obj.samples_range, obj.header_bytes);
                
                if first
                 all_traces = traces;

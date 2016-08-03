@@ -1,4 +1,4 @@
-function [seismic_header, traces, trace_headers] = read_block(block_header, samples_range)
+function [seismic_header, traces, trace_headers] = read_block(block_header, samples_range, header_bytes)
     %% ------------------ FUNCTION DEFINITION ---------------------------------
     % Function to read traces from a specific block with a
     % scanned segy volume
@@ -20,14 +20,14 @@ function [seismic_header, traces, trace_headers] = read_block(block_header, samp
     start_byte = block_header{end-1};
     n_traces = block_header{end};
     [traces, trace_headers] = read_traces(seismic_header, start_byte, ...
-                                          n_traces, samples_range);
+                                          n_traces, samples_range, header_bytes);
     
     
     
 end
 
 function [traces,trace_headers] = read_traces(seismic, start_byte,...
-                                              n_traces_to_read, samples_range)
+                                              n_traces_to_read, samples_range, header_bytes)
     %% Reads a block of traces 
 
     % Scroll back to the header
