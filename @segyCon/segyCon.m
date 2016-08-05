@@ -91,11 +91,6 @@ classdef segyCon < iroCon
             obj.pathname = metadata_path;
             obj.type = type;
 
-% ---------------------------------------------------         
-
-            
-            
-		
 		% Check and account for optional input arguments
 		sr_written=0; hb_written=0;
 		
@@ -111,7 +106,7 @@ classdef segyCon < iroCon
 					if strcmpi(varargin{i},'SampleRange');
 						obj.samples_range = varargin{i+1};
 						sr_written=1;
-					elseif strcmpi(varargin{i},'HeaderBytes');
+					elseif strcmpi(varargin{i},'Header_Bytes');
 						obj.header_bytes = varargin{i+1};
 						hb_written=1;
 					end
@@ -125,13 +120,30 @@ classdef segyCon < iroCon
 					obj.samples_range = [];
 				elseif hb_written == 0;
 					obj.header_bytes = [];
-				end
-		
+				end		
 			end
 		end
+		
+		% Convert Header_Bytes keywords to byte numbers
+		if iscellstr(obj.header_bytes);
+			%Load lookup
+			load('bytes_to_samples.mat');
+			Header_Byte_Locations=zeros(1,length(obj.header_bytes));
+			
+			for i=1:length(obj.header_bytes)
+				keyword=obj.header_bytes{i};
+				ii=strmatch(keyword,...
+				            char(bytes_to_samples_cell(:,2)),'exact');
+				            
+				Header_Byte_Locations(i)=cell2mat(...
+				                         bytes_to_samples_cell(ii,1));	
+			end
+			
+			obj.header_bytes=Header_Byte_Locations;
+			
+		end
 	
-   %-----------------------------------------------------------------------------        
-            
+          
         end
         
         function container = blocks(obj, blocks)
