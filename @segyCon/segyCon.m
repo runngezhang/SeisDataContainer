@@ -15,9 +15,15 @@ classdef segyCon < iroCon
     %           *MANDATORY* Metadata_path:  A string path to the metadata file. 
     %			         Ex: 'BPshotsMeta.mat'
     %		
-    %		*MANDATORY* Type: Type of ensemble. Use either 'shot' for data, or
-    %		                  'stack' for models. Changes what kind of labels
-    %                             are used for the volume.
+    %		*MANDATORY* Type: Type of ensemble. Changes what kind of labels
+    %                             are used for the volume. The two presets 'shot' and 
+    %				  'stack' create labels and units appropriate for those
+    %                             respective gathers. 
+    %                             Using type = 'custom' will label columns based on the 
+    % 			          HeaderBytes chosen when scanning the files if the user is
+    %                             viewing block headers, or the HeaderBytes chosen when 
+    %                             calling segyCon if the user is loading information incore.
+    %				  
     %	
     %		SampleRange: Optional range of samples you want to be read from each trace.
     %			       
@@ -82,9 +88,10 @@ classdef segyCon < iroCon
                 case 'stack'
                     header = irSDCpckg.stackHeaderFromMetadata(metadata_path);
                     
-                otherwise
-                    header = {};
+                case 'custom'
+                    header = irSDCpckg.customHeaderFromMetadata(metadata_path);
             end
+            
             dims = [size(header.scale,2) size(header.metadata,1)];
             
             obj = obj@iroCon(header, dims);
@@ -106,7 +113,7 @@ classdef segyCon < iroCon
 					if strcmpi(varargin{i},'SampleRange');
 						obj.samples_range = varargin{i+1};
 						sr_written=1;
-					elseif strcmpi(varargin{i},'Header_Bytes');
+					elseif strcmpi(varargin{i},'HeaderBytes');
 						obj.header_bytes = varargin{i+1};
 						hb_written=1;
 					end
@@ -168,7 +175,8 @@ classdef segyCon < iroCon
             
             header = irSDCpckg.headerFromBlockRead(segy_header,...
                                                    all_trace_headers,...
-                                                   obj.type);
+                                                   obj.type,...
+                                                   obj.header_bytes);
             
             container = iriCon(header, size(all_traces));
             container.data = all_traces;
@@ -195,7 +203,8 @@ classdef segyCon < iroCon
             
             header = irSDCpckg.headerFromBlockRead(segy_header,...
                                                    all_trace_headers,...
-                                                   obj.type);
+                                                   obj.type,...
+                                                   obj.header_bytes);
             
             container = iriCon(header, size(all_trace_headers));
             container.data =[];	
@@ -213,7 +222,9 @@ classdef segyCon < iroCon
                 
                 % make an in-core container
                 header = irSDCpckg.headerFromBlockRead(segy_header,...
-                                                       trace_headers);
+                                                       trace_headers,...
+                                                       obj.type,...
+                                                       obj.header_bytes);
                 
                 container = iriCon(header, size(traces));
                 container.data = traces;

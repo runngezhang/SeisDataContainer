@@ -36,6 +36,10 @@ function [traces,trace_headers] = read_traces(seismic, start_byte,...
     fid = fopen(char(seismic.filepath),'r','b');
     fseek(fid,start_byte,'bof');
 
+    if isempty(header_bytes)
+    	header_bytes = seismic.byte_locations;
+    end
+    
     if seismic.file_type == 1 || seismic.file_type == 5
  
         if ~isempty(samples_range);
@@ -53,7 +57,7 @@ function [traces,trace_headers] = read_traces(seismic, start_byte,...
         FullTraces_8(1:240,:) = [];
         
         %Interpret the header values
-        trace_headers = interpret_headers( Headers_8, header_bytes, seismic.byte_locations);
+        trace_headers = interpret_headers( Headers_8, header_bytes);
         
         %Interpret the data
         traces = reshape(swapbytes(typecast(FullTraces_8(:),'int32')),[],n_traces_to_read);

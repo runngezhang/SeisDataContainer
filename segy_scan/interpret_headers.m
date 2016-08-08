@@ -1,12 +1,8 @@
-function [trace_headers] = interpret_headers(Headers_8, HeaderBytes, SeismicByteLocations) 
+function [trace_headers] = interpret_headers(Headers_8, HeaderBytes) 
 %% Interprets 240 byte long trace headers and passes out the values specified by the vector of starting bytes ' HeaderBytes'
 
-%Check for headerbytes overwrite
-if isempty(HeaderBytes);
-	StartingLocations = SeismicByteLocations;
-else
-	StartingLocations = HeaderBytes;
-end %IF
+StartingLocations = HeaderBytes;
+
 
 %Pre-allocate memory for trace headers
 trace_headers = zeros(size(Headers_8,2), length(StartingLocations));
