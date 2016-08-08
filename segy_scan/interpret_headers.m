@@ -23,7 +23,7 @@ for field = 1:length(StartingLocations);
 	else
 		i = find(bytes_to_samples == StartingLocations(field));
 		byte_type = bytes_to_samples(i+1) - bytes_to_samples(i);
-	end
+	end %IF
 	
 	%Assign precision for conversion
 	if byte_type == 4;
@@ -33,7 +33,7 @@ for field = 1:length(StartingLocations);
 	else 
 		display('Invalid Byte type')
 		return
-	end
+	end %IF
 	
 	%Isolate bytes that correspond to header value
 	iso = Headers_8(StartingLocations(field):StartingLocations(field)+byte_type-1,:);

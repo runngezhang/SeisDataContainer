@@ -38,12 +38,10 @@ function [trace_headers] = read_trace_headers(seismic, start_byte,...
 
     if seismic.file_type == 1 || seismic.file_type == 5
  
-        %Read entire block as uint8
-        FullTraces_8 = fread(fid,[240+seismic.n_samples*4,n_traces_to_read],...
-                           '*uint8');
+        %Read trace headers then skip data
+        Headers_8 = fread(fid,[240,n_traces_to_read],...
+                           '240*uint8=>uint8', seismic.n_samples*4);
                            
-        %Pull out trace headers       
-        Headers_8 = FullTraces_8(1:240,:);
         
         %Interpret the header values
         trace_headers = interpret_headers( Headers_8, header_bytes, seismic.byte_locations);
@@ -51,7 +49,7 @@ function [trace_headers] = read_trace_headers(seismic, start_byte,...
                    
     else
         disp('This seismic file type is not currently supported.');
-    end
+    end %IF
 
     fclose(fid);  
 end
