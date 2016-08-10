@@ -71,22 +71,13 @@ function header_file_init(seismic, block_size, ...
     % Loop to read segy data 
     for ii = 1:loop_end
         
-        % Read blocktr x trace headers and trace data as uint32 into a 
-        % temporary matrix
-        tmptr = fread(seismic.fid,...
-                      [120+(bytes_per_sample/2)*seismic.n_samples,blocktr],...
-                      'uint16=>uint16');
-        tmptr = tmptr(1:120,:);
+	%Read trace headers then skip data
+        Headers_8 = fread(seismic.fid,[240,blocktr],...
+                           '240*uint8=>uint8', seismic.n_samples*4);
+                           
         
-        % Extract the header and byte mapping
-        [trace_header bytes_to_samples] = interpret(tmptr);
-
-        % Get the header values
-        for jj = 1:length(header_byte_locations)
-            compressed_header(:,jj) = trace_header(bytes_to_samples ==...
-                                                   header_byte_locations(jj),:);
-        end
-        
+        %Interpret the header values
+        compressed_header = interpret_headers( Headers_8, header_byte_locations);
         
         % byte location of start of block
         compressed_header(:,length(header_byte_locations)+1) = last_byte+(trc_head:trc_head+...
