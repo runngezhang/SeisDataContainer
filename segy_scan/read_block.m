@@ -59,8 +59,20 @@ function [traces,trace_headers] = read_traces(seismic, start_byte,...
         %Interpret the header values
         trace_headers = interpret_headers( Headers_8, header_bytes);
         
-        %Interpret the data
-        traces = reshape(swapbytes(typecast(FullTraces_8(:),'int32')),[],n_traces_to_read);
+        switch seismic.file_type
+        
+        	case 1        		
+        		%Interpret the data as uint32 then convert to double using ibm2num
+        		%then convert to single (to save memory)
+        		traces = reshape(swapbytes(typecast(FullTraces_8(:),'uint32')),...
+        			[],n_traces_to_read);
+        		traces = single(ibm2num(traces));
+        	
+        	case 5
+        		%Interpret the data as single (IEEE 32 bit Floating Point)
+        		traces = reshape(swapbytes(typecast(FullTraces_8(:),'single')),...
+        			[],n_traces_to_read);
+        end
                    
     else
         disp('This seismic file type is not currently supported.');
