@@ -25,12 +25,6 @@ switch s(1).type
         else
             % Call each container's overloaded subsasgnHelper to fetch
             % actual data
-            if ~isa(x, 'iCon')
-                xc = iCon(x);
-                xc = subsasgnHelper(xc, s, b);
-                x = double(xc);
-            else
-                x = subsasgnHelper(x,s,b);
-            end
+            x = subsasgnHelper(x,s,b);
         end
 end
