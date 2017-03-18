@@ -1,4 +1,4 @@
-function [seismic_header, traces, trace_headers] = read_block(block_header)
+function [seismic_header, traces, trace_headers] = read_block(block_header, samples_range, header_bytes)
     %% ------------------ FUNCTION DEFINITION ---------------------------------
     % Function to read traces from a specific block with a
     % scanned segy volume
@@ -14,21 +14,21 @@ function [seismic_header, traces, trace_headers] = read_block(block_header)
     %       nothing
 
     %%
-
-
+    
+    
     seismic_header = read_header_file(block_header{1});
     start_byte = block_header{end-1};
     n_traces = block_header{end};
     
     [traces, trace_headers] = read_traces(seismic_header, start_byte, ...
-                                          n_traces);
+                                          n_traces, samples_range, header_bytes);
     
     
     
 end
 
 function [traces,trace_headers] = read_traces(seismic, start_byte,...
-                                              n_traces_to_read)
+                                n_traces_to_read, samples_range, header_bytes)
     %% Reads a block of traces 
 
     % Scroll back to the header
@@ -37,52 +37,50 @@ function [traces,trace_headers] = read_traces(seismic, start_byte,...
     fid = fopen(char(seismic.filepath),'r','b');
     fseek(fid,start_byte,'bof');
 
-    if seismic.file_type == 1
-        % Convert traces from IBM32FP read as UINT32 into IEEE64FP
-        % (doubles) - need to make it singles
-        traces_tmp = fread(fid,[60+seismic.n_samples,n_traces_to_read],...
-                           '*uint32');
-        
-        trchead = traces_tmp(1:60,:);
-        [trace_header bytes_to_samples] = ...
-            interpretbe(reshape(typecast(trchead(:),'uint16'),120,[]));
-        
-        % get the headers
-        for field=1:seismic.n_fields
-            trace_headers(:, field) = ...
-                int32(trace_header(bytes_to_samples == ...
-                                   seismic.byte_locations(field),:))';
-        end
-        
-
-        
-        traces = single((1-2*double(bitget(traces_tmp(61:end,:),32))).*16.^ ...
-        (double(bitshift(bitand(traces_tmp(61:end,:),...
-                                uint32(hex2dec('7f000000'))),-24))-64).* ...
-        (double(bitand(traces_tmp(61:end,:), ...
-                       uint32(hex2dec('00ffffff'))))/2^24));
-        
-    elseif seismic.file_type == 2 
-        disp('This seismic file type is not currently supported.');
-    elseif seismic.file_type == 5
-        
-        % Traces are IEEE32FP (singles)   
-        traces = fread(fid,[60+seismic.n_samples,n_traces_to_read],...
-                       strcat(num2str(seismic.n_samples),'*float32=>float32'));
+    if isempty(header_bytes)
+    	header_bytes = seismic.byte_locations;
+    end
+    
+    if seismic.file_type == 1 || seismic.file_type == 5
  
-        trchead = typecast(single(reshape(traces(1:60,:),...
-                                          1,60*n_traces_to_read)),'uint16');  
+        if ~isempty(samples_range);
+        	
+        	% Find the remaining bytes to skip after the range
+        	toskip = (seismic.n_samples - samples_range(2))*4;
+        	
+    		%Read samples according to sample range
+        	FullTraces_8 = fread(fid,[240+samples_range(2)*4,n_traces_to_read],...
+                        [num2str(240 + samples_range(2)*4),'*uint8=>uint8'],toskip);
+        else
         
-        [trace_header bytes_to_samples] = interpretbe(reshape(trchead,120,[]));
-        
-        % get the headers
-        for field=1:seismic.n_fields
-            trace_headers(:, field) = ...
-                int32(trace_header(bytes_to_samples == ...
-                                   seismic.byte_locations(field),:))';
+        	%Read entire block
+        	FullTraces_8 = fread(fid,[240+seismic.n_samples*4,n_traces_to_read],...
+                           '*uint8');
         end
-      
-        traces = traces(61:end,:);            
+                         
+        %Pull out trace headers and clear headers from FullTraces without 
+        %duplicating the array        
+        Headers_8 = FullTraces_8(1:240,:);
+        FullTraces_8(1:240,:) = [];
+        
+        %Interpret the header values
+        trace_headers = interpret_headers(Headers_8, header_bytes);
+        
+        switch seismic.file_type
+        
+        	case 1        		
+        		%Interpret the data as uint32 then convert to double using
+        		% ibm2num then convert to single (to save memory)
+        		traces = reshape(swapbytes(typecast(FullTraces_8(:),'uint32')),...
+        			[],n_traces_to_read);
+        		traces = single(ibm2num(traces));
+        	
+        	case 5
+        		%Interpret the data as single (IEEE 32 bit Floating Point)
+        		traces = reshape(swapbytes(typecast(FullTraces_8(:),'single')),...
+        			[],n_traces_to_read);
+        end
+                   
     else
         disp('This seismic file type is not currently supported.');
     end
@@ -90,37 +88,4 @@ function [traces,trace_headers] = read_traces(seismic, start_byte,...
     fclose(fid);  
 end
 
-
-function [trace_header bytes_to_samples] = interpretbe(tmptrheader)
-%% Big-Endian segy trace header reader %%%
-    
-    byte_type = [ ...
-        2*ones(7,1); ones(4,1);
-        2*ones(8,1); ones(2,1);
-        2*ones(4,1); ones(46,1);
-        2*ones(5,1); ones(2,1);
-        2*ones(1,1); ones(5,1);
-        2*ones(1,1); ones(1,1);
-        2*ones(1,1); ones(2,1);
-        2*ones(1,1); 2*ones(1,1)];
-
-    ntr = size(tmptrheader,2);
-    trace_header = zeros(91,ntr);
-    bytes_to_samples = zeros(91,1);
-
-    count =1;
-    for ii = 1:91
-        bytes_to_samples(ii,1) = 2*count-1;
-        if byte_type(ii) == 1
-            trace_header(ii,:) = double(tmptrheader(count,:));
-            count = count+1;
-        elseif byte_type(ii) == 2
-            trace_header(ii,:) = double(tmptrheader(count+1,:))*2^16 + double(tmptrheader(count,:)); % note this is big-endian and different to one in segy_make_structure
-            count = count+2;
-        end
-    end
-
-    trace_header(21,:) = trace_header(21,:)-2^16;
-
-end
 

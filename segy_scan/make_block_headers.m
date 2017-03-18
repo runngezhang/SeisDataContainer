@@ -14,9 +14,10 @@ function block_headers = make_block_headers(header_file, block_size)
     
     block_headers = [];
     
-    seismic = read_header_file(header_file);
+    seismic = read_header_file_forscan(header_file);
     
     n_blocks = floor(seismic.n_traces / block_size)
+    
     for block=1:n_blocks
         
         start_ind = (block-1)*block_size +1;
@@ -28,6 +29,7 @@ function block_headers = make_block_headers(header_file, block_size)
                                              headers, block_size);
       
         block_headers = [block_headers; block_header];
+        
     end
     
     % Left overs

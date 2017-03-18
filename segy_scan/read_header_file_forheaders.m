@@ -1,4 +1,4 @@
-function seismic = read_header_file(header_file)
+function seismic = read_header_file_forheaders(header_file)
     
     % main field location
     filepath_length = 2000;

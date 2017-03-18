@@ -29,7 +29,8 @@ function segy_scan(filepath, file_filter, header_byte_locations, ...
     
     
     %% Make the compressed trace header files
-    for i_file = 1:nfiles
+
+for i_file = 1:nfiles
 
         filename = files_in.names{i_file};                         
         filepath = files_in.path{i_file};     

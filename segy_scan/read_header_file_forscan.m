@@ -12,7 +12,7 @@ function seismic = read_header_file(header_file)
     % open the file
     fid = fopen(header_file,'r');                        
     message = ferror(fid); 
-    tmp_seismic = fread(fid,byte_location_buffer,'double');                        
+    tmp_seismic = fread(fid,'double');                        
 
     %------------------CREATING THE STRUCTURE TO OUTPUT-------------------
     seismic.filepath = char(tmp_seismic(1:filepath_length,1)'); % File Path
@@ -32,8 +32,8 @@ function seismic = read_header_file(header_file)
     traces_length = index;
 
 
-    %seismic.compressed_headers = reshape(tmp_seismic(traces_length:end),...
-    %                                  seismic.n_fields+1,[])';
+    seismic.compressed_headers = reshape(tmp_seismic(traces_length:end),...
+                                      seismic.n_fields+1,[])';
 
 
     fclose(fid);                                                % Close File
