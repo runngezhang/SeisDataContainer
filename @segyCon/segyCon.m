@@ -163,12 +163,45 @@ classdef segyCon < iroCon
                    read_block(obj.header.metadata(block, :), obj.samples_range, obj.header_bytes);
                
                if first
-                all_traces = traces;
-                all_trace_headers = trace_headers;
-                first = 0;
+               
+               % Allocate memory for all trace headers and traces
+               [trace_current n_bytes] = size(trace_headers);
+               nsamples = size(traces,1);
+               
+               all_trace_headers = zeros(...
+               			length(blocks)*trace_current,5); %headers
+               			
+               all_traces = zeros(nsamples, length(blocks)*trace_current);%traces
+               
+               
+               %Store first block's trace headers
+               all_trace_headers(1:trace_current,1:n_bytes)=trace_headers;	
+               all_traces(:,1:trace_current) = traces;
+               
+               %Keep this index
+               trace_last = trace_current;				 		            	
+               first = 0;
+               
+%                all_traces = traces;
+%                all_trace_headers = trace_headers;
+%               first = 0;
                else
-                   all_traces = [all_traces, traces];
-                   all_trace_headers = [all_trace_headers; trace_headers];
+               
+               
+               % Number of traces in this block
+               [trace_current n_bytes] = size(trace_headers);
+               
+               % Store current traces
+               all_trace_headers((trace_last+1):(trace_last+trace_current),1:n_bytes) = trace_headers;
+               
+               all_traces(:,(trace_last+1):(trace_last+trace_current)) = traces;
+               
+               % Update index in header array
+               trace_last = trace_last + trace_current;
+               
+               
+%                   all_traces = [all_traces, traces];
+%                   all_trace_headers = [all_trace_headers; trace_headers];
                end
                
             end
@@ -192,14 +225,34 @@ classdef segyCon < iroCon
                 [segy_header, trace_headers] =   ...
                    read_headers(obj.header.metadata(block, :), obj.header_bytes);
                
+               
                if first
-                all_trace_headers = trace_headers;
-                first = 0;
+               
+               % Allocate memory for all trace headers
+               [trace_current n_bytes] = size(trace_headers);
+               all_trace_headers = zeros(...
+               			length(blocks)*trace_current,5); 
+               
+               %Store first block's trace headers
+               all_trace_headers(1:trace_current,1:n_bytes)=trace_headers;	
+               
+               %Keep this index
+               trace_last = trace_current;				 		            	
+               first = 0;
                else
-                   all_trace_headers = [all_trace_headers; trace_headers];
+               
+               
+               % Number of traces in this block
+               [trace_current n_bytes] = size(trace_headers);
+               
+               % Store current traces
+               all_trace_headers((trace_last+1):(trace_last+trace_current),1:n_bytes) = trace_headers;
+               
+               % Update index in header array
+               trace_last = trace_last + trace_current;    
                end
                
-            end
+            end	
             
             header = irSDCpckg.headerFromBlockRead(segy_header,...
                                                    all_trace_headers,...

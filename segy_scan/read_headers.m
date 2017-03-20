@@ -15,13 +15,16 @@ function [seismic_header, trace_headers] = read_headers(block_header, header_byt
 
     %%
     
-    
-    seismic_header = read_header_file(block_header{1});
+    %CHANGED THIS
+    seismic_header = read_header_file_forheaders(block_header{1});
     start_byte = block_header{end-1};
     n_traces = block_header{end};
-    [trace_headers] = read_trace_headers(seismic_header, start_byte, ...
-                                          n_traces, header_bytes);
     
+    %trace_headers = seismic_header.compressed_headers;
+    
+    [trace_headers] = read_trace_headers(seismic_header, start_byte, ...
+                                       n_traces, header_bytes);
+    	
     
     
 end
@@ -49,8 +52,8 @@ function [trace_headers] = read_trace_headers(seismic, start_byte,...
         
         %Interpret the header values
         trace_headers = interpret_headers( Headers_8, header_bytes);
-        
-                   
+          
+                                      
     else
         disp('This seismic file type is not currently supported.');
     end %IF

@@ -14,7 +14,7 @@ function block_headers = make_block_headers(header_file, block_size)
     
     block_headers = [];
     
-    seismic = read_header_file(header_file);
+    seismic = read_header_file_forscan(header_file);
     
     n_blocks = floor(seismic.n_traces / block_size)
     

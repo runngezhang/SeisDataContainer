@@ -8,7 +8,7 @@ StartingLocations = HeaderBytes;
 trace_headers = zeros(size(Headers_8,2), length(StartingLocations));
 
 %Load byte location lookup table
-load('bytes_to_samples.mat')
+bytes_to_samples_cell = bytes_to_samples_func;
 bytes_to_samples=cell2mat(bytes_to_samples_cell(:,1));
 
 for field = 1:length(StartingLocations);
